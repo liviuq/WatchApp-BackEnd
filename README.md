@@ -1,2 +1,2 @@
 # WatchApp-BackEnd
-This is the BackEnd repository for 2A3.
+This is the backend repo for WatchApp built by 2A3.
