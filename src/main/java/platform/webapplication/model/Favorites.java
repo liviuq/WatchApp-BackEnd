@@ -1,11 +1,20 @@
 package platform.webapplication.model;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,36 +22,16 @@ public class Favorites {
     private Integer product_id;
     private Integer user_id;
 
-    public Favorites() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Favorites favorites = (Favorites) o;
+        return id != null && Objects.equals(id, favorites.id);
     }
 
-    public Favorites(Integer id, Integer productId, Integer userId) {
-        this.id = id;
-        this.product_id = productId;
-        this.user_id = userId;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public Integer getProduct_id() {
-        return this.product_id;
-    }
-
-    public Integer getUser_id() {
-        return this.user_id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setProduct_id(Integer productId) {
-        this.product_id = productId;
-    }
-
-    public void setUser_id(Integer userId) {
-        this.user_id = userId;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

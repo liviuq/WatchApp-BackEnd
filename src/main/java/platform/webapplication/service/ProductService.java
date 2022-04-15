@@ -1,6 +1,7 @@
 package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import platform.webapplication.model.Product;
 import platform.webapplication.model.User;
 import platform.webapplication.repository.ProductRepository;
@@ -9,6 +10,7 @@ import platform.webapplication.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ProductService {
     private ProductRepository productRepository;
 
