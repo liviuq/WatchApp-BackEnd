@@ -1,12 +1,21 @@
 package platform.webapplication.model;
 
+import lombok.*;
+import org.hibernate.Hibernate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,54 +25,16 @@ public class Message {
     private Date date;
     private String  text;
 
-    public Message() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Message message = (Message) o;
+        return id != null && Objects.equals(id, message.id);
     }
 
-    public Message(Integer id, Integer fromUser, Integer toUser, Date date, String text) {
-        this.id = id;
-        this.from_user = fromUser;
-        this.to_user = toUser;
-        this.date = date;
-        this.text = text;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public Integer getFrom_user() {
-        return this.from_user;
-    }
-
-    public Integer getTo_user() {
-        return this.to_user;
-    }
-
-    public Date getDate() {
-        return this.date;
-    }
-
-    public String getText() {
-        return this.text;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setFrom_user(Integer fromUser) {
-        this.from_user = fromUser;
-    }
-
-    public void setTo_user(Integer toUser) {
-        this.to_user = toUser;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

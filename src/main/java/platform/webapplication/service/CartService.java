@@ -1,12 +1,14 @@
 package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import platform.webapplication.model.Cart;
 import platform.webapplication.repository.CartRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CartService {
 
     private CartRepository cartRepository;
