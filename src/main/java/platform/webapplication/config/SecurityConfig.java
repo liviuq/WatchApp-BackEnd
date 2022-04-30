@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // require authentication on all paths except the home page
                 .mvcMatchers("/", "/user", "/homepage/*", "user/*", "/homepage").permitAll()
                 .antMatchers(POST,"/user/register", "/favorites").permitAll()
-                .antMatchers(DELETE,"/favorites/delete/*").permitAll()
+                .antMatchers(DELETE,"/favorites/delete/*", "/homepage/*/delete/*").permitAll()
                 .anyRequest().authenticated()
                 // enable users to login with Auth0
                 .and().oauth2Login()

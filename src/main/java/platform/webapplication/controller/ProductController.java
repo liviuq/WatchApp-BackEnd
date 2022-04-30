@@ -28,7 +28,26 @@ public class ProductController {
     }
 
     @DeleteMapping("delete/{id}")
+    //delete for admins only
     public void delete(@PathVariable Integer id) {
         productService.deleteById(id);
+    }
+
+    @DeleteMapping("{user_id}/delete/{id}")
+    public void deleteUserProduct(@PathVariable Integer user_id, @PathVariable Integer id){
+        //check to see if product with this id belongs to user_id
+        //edit1: endpoint will be caclled by the frontend team
+        //so no verification is needed
+
+        //edit2: verification is done!
+        if(productService.getUserId(id).equals(user_id))
+        {
+            productService.deleteById(id);
+        }
+        else
+        {
+            //edit for production's sake
+            System.out.println("WA NEBUNULE");
+        }
     }
 }

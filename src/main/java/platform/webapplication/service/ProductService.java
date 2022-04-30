@@ -14,7 +14,6 @@ import java.util.List;
 public class ProductService {
     private ProductRepository productRepository;
 
-
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -29,6 +28,7 @@ public class ProductService {
 
         return products;
     }
+
     public List<Product> findPromoted() {
         var promotedProducts = new ArrayList<Product>();
         var products = findAll();
@@ -53,5 +53,9 @@ public class ProductService {
 
     public void deleteById(Integer productId) {
         productRepository.deleteById(productId);
+    }
+
+    public Integer getUserId(Integer id) {
+        return productRepository.getById(id).getUser_id();
     }
 }
