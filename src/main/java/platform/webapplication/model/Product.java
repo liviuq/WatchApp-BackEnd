@@ -25,17 +25,18 @@ public class Product {
     private Integer year;
     private String strap;
     private String glass;
-    private String strapColor;
+    private String strap_color;
     private Integer water_resistence;
     private String carcase;
     private String carcase_form;
     private String carcase_color;
     private Integer carcase_thickness;
     private Byte alarm;
-    private Byte time;
+    private Byte timer;
     private String mechanism;
     private Integer rating;
     private String gen;
+    private Byte promovat;
 
     @Override
     public boolean equals(Object o) {

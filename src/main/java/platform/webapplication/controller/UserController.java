@@ -3,6 +3,7 @@ package platform.webapplication.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.model.User;
+import platform.webapplication.repository.UserRepository;
 import platform.webapplication.service.UserService;
 
 import java.util.List;
@@ -11,10 +12,12 @@ import java.util.List;
 @RequestMapping(path="/user")
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping()
@@ -32,5 +35,10 @@ public class UserController {
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Integer id) {
         userService.deleteById(id);
+    }
+
+    @PostMapping("register")
+    public User newUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
 }

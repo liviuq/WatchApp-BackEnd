@@ -25,9 +25,19 @@ public class ProductService {
         var it = productRepository.findAll();
 
         var products = new ArrayList<Product>();
-        it.forEach(e -> products.add(e));
+        it.forEach(products::add);
 
         return products;
+    }
+    public List<Product> findPromoted() {
+        var promotedProducts = new ArrayList<Product>();
+        var products = findAll();
+        for(Product p : products) {
+            if(p.getPromovat() != 0 && p.getPromovat() != null) {
+                promotedProducts.add(p);
+            }
+        }
+        return promotedProducts;
     }
 
     public Product findById(Integer id) {
