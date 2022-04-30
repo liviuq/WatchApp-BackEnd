@@ -3,6 +3,7 @@ package platform.webapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import platform.webapplication.model.Cart;
+import platform.webapplication.model.Order;
 import platform.webapplication.repository.CartRepository;
 
 import java.util.ArrayList;
@@ -25,6 +26,12 @@ public class CartService {
         it.forEach(e -> carts.add(e));
 
         return carts;
+    }
+
+    public Cart findById(Integer id)
+    {
+        var cart = cartRepository.findById(id);
+        return cart.orElse(null);
     }
 
     public Long count() {
