@@ -7,5 +7,5 @@ import platform.webapplication.model.Cart;
 import platform.webapplication.model.User;
 
 @Repository
-public interface CartRepository extends CrudRepository<Cart, Integer> {
+public interface CartRepository extends JpaRepository<Cart, Integer> {
 }

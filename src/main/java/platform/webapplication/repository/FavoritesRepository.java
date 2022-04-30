@@ -7,5 +7,5 @@ import platform.webapplication.model.Favorites;
 import platform.webapplication.model.User;
 
 @Repository
-public interface FavoritesRepository extends CrudRepository<Favorites, Integer> {
+public interface FavoritesRepository extends JpaRepository<Favorites, Integer> {
 }

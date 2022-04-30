@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import platform.webapplication.model.User;
 
 @Repository
-public interface  UserRepository extends CrudRepository<User, Integer> {
+public interface  UserRepository extends JpaRepository<User, Integer> {
 }

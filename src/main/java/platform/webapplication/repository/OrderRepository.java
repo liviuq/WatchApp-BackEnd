@@ -7,5 +7,5 @@ import platform.webapplication.model.Order;
 import platform.webapplication.model.User;
 
 @Repository
-public interface OrderRepository extends CrudRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 }

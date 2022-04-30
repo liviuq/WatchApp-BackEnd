@@ -7,5 +7,5 @@ import platform.webapplication.model.Message;
 import platform.webapplication.model.User;
 
 @Repository
-public interface MessageRepository extends CrudRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<Message, Integer> {
 }
