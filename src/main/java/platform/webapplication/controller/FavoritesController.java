@@ -9,13 +9,12 @@ import platform.webapplication.service.FavoritesService;
 @RestController
 @RequestMapping(path="/favorites")
 public class FavoritesController {
+
     private final FavoritesService favoritesService;
-    private final FavoritesRepository favoritesRepository;
 
     @Autowired
-    public FavoritesController(FavoritesService favoritesService, FavoritesRepository favoritesRepository) {
+    public FavoritesController(FavoritesService favoritesService) {
         this.favoritesService = favoritesService;
-        this.favoritesRepository = favoritesRepository;
     }
 
     @DeleteMapping("delete/{id}")
@@ -25,6 +24,6 @@ public class FavoritesController {
 
     @PostMapping()
     public Favorites addProductToFavorites(@RequestBody Favorites favorite) {
-        return favoritesRepository.save(favorite);
+        return favoritesService.saveProduct(favorite);
     }
 }

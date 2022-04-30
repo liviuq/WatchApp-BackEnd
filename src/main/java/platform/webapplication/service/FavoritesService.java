@@ -22,15 +22,18 @@ public class FavoritesService {
 
         var it = favoritesRepository.findAll();
 
-        ArrayList<Favorites> favorites = new ArrayList<Favorites>();
+        ArrayList<Favorites> favorites = new ArrayList<>();
         it.forEach(e -> favorites.add(e));
 
         return favorites;
     }
 
     public Long count() {
-
         return favoritesRepository.count();
+    }
+
+    public Favorites saveProduct(Favorites favorite) {
+        return favoritesRepository.save(favorite);
     }
 
     public void deleteById(Integer favoriteId) {
