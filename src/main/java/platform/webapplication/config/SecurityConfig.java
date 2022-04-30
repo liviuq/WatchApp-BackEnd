@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import platform.webapplication.controller.LogoutController;
 
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -18,9 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable(); // able to execute post/delete methods
+        //TODO: adaugare roluri pentru utilizatori -> autorizari
         http.authorizeRequests()
                 // require authentication on all paths except the home page
-                .mvcMatchers("/", "/user").permitAll()
+                .mvcMatchers("/", "/user", "/homepage/*", "user/*", "/homepage").permitAll()
+                .antMatchers(POST,"/user/register", "/favorites").permitAll()
+                .antMatchers(DELETE,"/favorites/delete/*").permitAll()
                 .anyRequest().authenticated()
                 // enable users to login with Auth0
                 .and().oauth2Login()
