@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import platform.webapplication.model.Product;
 import platform.webapplication.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,5 +50,27 @@ public class ProductController {
             //edit for production's sake
             System.out.println("WA NEBUNULE");
         }
+    }
+
+    //list your own products
+    @GetMapping("{user_id}/products")
+    public List<Product> getUserProducts(@PathVariable Integer user_id) {
+        //check to see if user_id exists
+        if(productService.checkUserExists(user_id))
+        {
+            //creating the array of products that belong to user_id
+            List<Product> products = new ArrayList<>();
+            for(Product product : productService.findAll())
+            {
+                //verify that product belongs to user_id
+                if(product.getUser_id().equals(user_id))
+                {
+                    //add product to the array
+                    products.add(product);
+                }
+            }
+            return products;
+        }
+        return new ArrayList<>();
     }
 }

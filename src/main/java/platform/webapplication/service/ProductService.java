@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import platform.webapplication.model.Product;
 import platform.webapplication.model.User;
 import platform.webapplication.repository.ProductRepository;
-import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,12 @@ import java.util.List;
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+    private final UserService userService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, UserService userService) {
         this.productRepository = productRepository;
+        this.userService = userService;
     }
 
     public List<Product> findAll() {
@@ -49,6 +50,10 @@ public class ProductService {
     public Long count() {
 
         return productRepository.count();
+    }
+
+    public boolean checkUserExists(Integer id) {
+        return userService.findById(id) != null;
     }
 
     public void deleteById(Integer productId) {

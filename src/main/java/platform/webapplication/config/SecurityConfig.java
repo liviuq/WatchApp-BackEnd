@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //TODO: adaugare roluri pentru utilizatori -> autorizari
         http.authorizeRequests()
                 // require authentication on all paths except the home page
-                .mvcMatchers("/", "/user", "/homepage/*", "user/*", "/homepage").permitAll()
+                .mvcMatchers("/", "/user", "/homepage/*", "user/*", "/homepage","/homepage/*/products").permitAll()
                 .antMatchers(POST,"/user/register", "/favorites/*").permitAll()
                 .antMatchers(DELETE,"/favorites/delete/*", "/homepage/*/delete/*").permitAll()
                 .anyRequest().authenticated()
