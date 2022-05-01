@@ -9,6 +9,7 @@ import platform.webapplication.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -32,7 +33,7 @@ public class ProductService {
 
     public Product findById(Integer id) {
 
-        var product = productRepository.findById(id);
+        Optional<Product> product = productRepository.findById(id);
         return product.orElse(null);
     }
 
