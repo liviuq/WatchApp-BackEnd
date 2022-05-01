@@ -2,7 +2,7 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import platform.webapplication.enitites.Product;
+import platform.webapplication.entities.Product;
 import platform.webapplication.models.AllProducts;
 import platform.webapplication.models.ProductAdded;
 import platform.webapplication.models.ProductUpdated;

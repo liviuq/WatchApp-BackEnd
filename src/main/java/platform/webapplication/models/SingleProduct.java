@@ -1,7 +1,7 @@
 package platform.webapplication.models;
 
 import lombok.*;
-import platform.webapplication.enitites.Product;
+import platform.webapplication.entities.Product;
 
 @Getter
 @Setter

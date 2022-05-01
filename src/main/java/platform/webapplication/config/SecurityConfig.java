@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import platform.webapplication.controller.LogoutController;
 
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -20,7 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // require authentication on all paths except the home page
-                .mvcMatchers("/", "/user").permitAll()
+                .mvcMatchers("/", "/user", "/product").permitAll()
+                .antMatchers(POST,"/user/register", "/favorites/*","/product/*").permitAll()
+                .antMatchers(DELETE,"/favorites/delete/*", "/homepage/*/delete/*").permitAll()
                 .anyRequest().authenticated()
                 // enable users to login with Auth0
                 .and().oauth2Login()
