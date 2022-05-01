@@ -1,4 +1,4 @@
-package platform.webapplication.model;
+package platform.webapplication.enitites;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -36,6 +36,7 @@ public class Product {
     private String mechanism;
     private Integer rating;
     private String gen;
+    private String category;
 
     @Override
     public boolean equals(Object o) {

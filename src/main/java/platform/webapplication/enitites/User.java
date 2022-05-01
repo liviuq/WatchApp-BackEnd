@@ -1,4 +1,4 @@
-package platform.webapplication.model;
+package platform.webapplication.enitites;
 
 import lombok.*;
 import org.hibernate.Hibernate;
