@@ -18,13 +18,13 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<User> allUsers() {
+    public List<User> all() {
 
         return userService.findAll();
     }
 
     @GetMapping("{id}")
-    public User userById(@PathVariable Integer id) {
+    public User byId(@PathVariable Integer id) {
 
         return userService.findById(id);
     }

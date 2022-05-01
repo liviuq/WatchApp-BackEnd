@@ -10,16 +10,17 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ProductAdded {
+public class ProductUpdated {
     private Product product = new Product();
     private String error = "";
     private int statusCode = 500;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductAdded that = (ProductAdded) o;
+        ProductUpdated that = (ProductUpdated) o;
         return statusCode == that.statusCode && Objects.equals(product, that.product) && Objects.equals(error, that.error);
     }
 

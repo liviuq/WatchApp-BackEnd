@@ -22,7 +22,7 @@ public class Message {
     private Integer id;
     private Integer from_user;
     private Integer to_user;
-    private Date date;
+    private Date time;
     private String  text;
 
     @Override
