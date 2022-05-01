@@ -2,8 +2,10 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.enitites.Order;
+import platform.webapplication.model.Order;
+import platform.webapplication.model.User;
 import platform.webapplication.repository.OrderRepository;
+import platform.webapplication.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;

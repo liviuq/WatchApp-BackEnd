@@ -2,9 +2,10 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.enitites.Product;
-import platform.webapplication.models.ProductAdded;
+import platform.webapplication.model.Product;
+import platform.webapplication.model.User;
 import platform.webapplication.repository.ProductRepository;
+import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,34 +43,5 @@ public class ProductService {
 
     public void deleteById(Integer productId) {
         productRepository.deleteById(productId);
-    }
-
-    public ProductAdded add(Product product)
-    {
-        ProductAdded productAdded = new ProductAdded();
-
-        var result = productRepository.save(product);
-        productAdded.setProduct(result);
-
-        if(result == null){
-
-            productAdded.setError("A aparut o eroare in cadrul salvarii produsului. Va rugam reincercati mai tarziu!");
-            productAdded.setStatusCode(500);
-            return productAdded;
-        }
-
-        productAdded.setError("");
-        productAdded.setStatusCode(201);
-        return productAdded;
-    }
-
-    public List<String> findAllCategories()
-    {
-        var categories = new ArrayList<String>();
-        productRepository.findAll().forEach(x -> {
-            categories.add(x.getCategory());
-        });
-
-        return categories;
     }
 }

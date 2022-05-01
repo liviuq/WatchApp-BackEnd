@@ -2,8 +2,9 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.enitites.Favorites;
+import platform.webapplication.model.Favorites;
 import platform.webapplication.repository.FavoritesRepository;
+import platform.webapplication.repository.MessageRepository;
 
 import java.util.ArrayList;
 import java.util.List;

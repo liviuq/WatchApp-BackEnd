@@ -2,7 +2,7 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.enitites.User;
+import platform.webapplication.model.User;
 import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
