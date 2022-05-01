@@ -1,4 +1,4 @@
-package platform.webapplication.model;
+package platform.webapplication.enitites;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -16,21 +15,19 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Message {
+public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer from_user;
-    private Integer to_user;
-    private Date date;
-    private String  text;
+    private Integer product_id;
+    private Integer user_id;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Message message = (Message) o;
-        return id != null && Objects.equals(id, message.id);
+        Favorites favorites = (Favorites) o;
+        return id != null && Objects.equals(id, favorites.id);
     }
 
     @Override
