@@ -3,10 +3,10 @@ package platform.webapplication.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Product;
-import platform.webapplication.models.AllProducts;
-import platform.webapplication.models.ProductAdded;
-import platform.webapplication.models.ProductUpdated;
-import platform.webapplication.models.SingleProduct;
+import platform.webapplication.models.Products.AllProducts;
+import platform.webapplication.models.Products.ProductAdded;
+import platform.webapplication.models.Products.ProductUpdated;
+import platform.webapplication.models.Products.SingleProduct;
 import platform.webapplication.service.ProductService;
 
 import java.util.List;

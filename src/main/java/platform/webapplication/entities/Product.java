@@ -32,7 +32,7 @@ public class Product {
     private String carcase_color;
     private Integer carcase_thickness;
     private Byte alarm;
-    private Byte time;
+    private Byte timer;
     private String mechanism;
     private Integer rating;
     private String gen;

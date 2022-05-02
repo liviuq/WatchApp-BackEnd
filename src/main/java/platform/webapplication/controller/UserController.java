@@ -2,6 +2,9 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import platform.webapplication.models.Users.AllUsers;
+import platform.webapplication.models.Users.SingleUser;
+import platform.webapplication.models.Users.UserUpdated;
 import platform.webapplication.entities.User;
 import platform.webapplication.service.UserService;
 
@@ -18,19 +21,26 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<User> all() {
-
-        return userService.findAll();
+    public AllUsers all() {
+        AllUsers result = userService.findAll();
+        return result;
     }
 
     @GetMapping("{id}")
-    public User byId(@PathVariable Integer id) {
+    public SingleUser byId(@PathVariable Integer id) {
 
-        return userService.findById(id);
+        SingleUser result = userService.findById(id);
+        return result;
     }
 
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Integer id) {
         userService.deleteById(id);
+    }
+
+    @PutMapping("{id}")
+    public UserUpdated update(@RequestHeader Integer id, @RequestBody User user) {
+        UserUpdated result = userService.update(id, user);
+        return result;
     }
 }
