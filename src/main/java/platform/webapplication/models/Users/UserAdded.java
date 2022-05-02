@@ -1,4 +1,4 @@
-package platform.webapplication.models;
+package platform.webapplication.models.Users;
 
 import lombok.*;
 import platform.webapplication.entities.User;
@@ -10,18 +10,17 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class UserUpdated {
+public class UserAdded {
     private User user = new User();
     private String error = "";
     private int statusCode = 500;
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserUpdated that = (UserUpdated) o;
-        return statusCode == that.statusCode && Objects.equals(user, that.user) && Objects.equals(error, that.error);
+        UserAdded userAdded = (UserAdded) o;
+        return statusCode == userAdded.statusCode && Objects.equals(user, userAdded.user) && Objects.equals(error, userAdded.error);
     }
 
     @Override

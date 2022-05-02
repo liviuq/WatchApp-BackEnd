@@ -1,4 +1,4 @@
-package platform.webapplication.models;
+package platform.webapplication.models.Products;
 
 import lombok.*;
 import platform.webapplication.entities.Product;

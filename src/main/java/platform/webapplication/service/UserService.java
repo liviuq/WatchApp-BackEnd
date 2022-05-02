@@ -2,12 +2,13 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.models.UserUpdated;
+import platform.webapplication.models.Users.AllUsers;
+import platform.webapplication.models.Users.SingleUser;
+import platform.webapplication.models.Users.UserUpdated;
 import platform.webapplication.entities.User;
 import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,21 +20,29 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public List<User> findAll() {
-
+    public AllUsers findAll() {
         var it = userRepository.findAll();
 
+        if(it.isEmpty())
+        {
+            return new AllUsers(new ArrayList<User>(), "", 200);
+        }
         var users = new ArrayList<User>();
         it.forEach(e -> users.add(e));
 
-        return users;
+        return new AllUsers(users, "", 200);
     }
 
-    public User findById(Integer id) {
+    public SingleUser findById(Integer id) {
 
-        var user = userRepository.findById(id);
-        return user.orElse(null);
+        var result = userRepository.findById(id);
+
+        if(result.isEmpty()){
+            return new SingleUser(null, "User not found", 404);
+        }
+        SingleUser user = new SingleUser(result.get(), "", 200);
+
+        return user;
     }
 
     public Long count() {
