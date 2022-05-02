@@ -2,8 +2,8 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import platform.webapplication.enitites.User;
 import platform.webapplication.models.UserUpdated;
+import platform.webapplication.entities.User;
 import platform.webapplication.service.UserService;
 
 import java.util.List;

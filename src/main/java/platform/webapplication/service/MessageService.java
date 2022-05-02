@@ -2,7 +2,7 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.enitites.Message;
+import platform.webapplication.entities.Message;
 import platform.webapplication.repository.MessageRepository;
 
 import java.util.ArrayList;
