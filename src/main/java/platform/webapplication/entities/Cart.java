@@ -1,4 +1,4 @@
-package platform.webapplication.enitites;
+package platform.webapplication.entities;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -16,21 +15,20 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Message {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer from_user;
-    private Integer to_user;
-    private Date time;
-    private String  text;
+    private Integer product_id;
+    private Integer buyer_id;
+    private Integer seller_id;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Message message = (Message) o;
-        return id != null && Objects.equals(id, message.id);
+        Cart cart = (Cart) o;
+        return id != null && Objects.equals(id, cart.id);
     }
 
     @Override
