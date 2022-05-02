@@ -26,8 +26,7 @@ public class ProductService {
     public AllProducts findAll() {
         var it = productRepository.findAll();
 
-        if(it.isEmpty())
-        {
+        if (it.isEmpty()) {
 
             return new AllProducts(new ArrayList<Product>(), "", 200);
         }
@@ -41,8 +40,8 @@ public class ProductService {
 
         var result = productRepository.findById(id);
 
-        if(result.isEmpty()){
-                return new SingleProduct(null, "Product not found", 404);
+        if (result.isEmpty()) {
+            return new SingleProduct(null, "Product not found", 404);
         }
         SingleProduct product = new SingleProduct(result.get(), "", 200);
 
@@ -99,8 +98,48 @@ public class ProductService {
             entity = product;
             entity.setId(identifier);
 
-             productUpdated.setProduct(productRepository.save(entity));
-             productUpdated.setStatusCode(202);
+            productUpdated.setProduct(productRepository.save(entity));
+            productUpdated.setStatusCode(202);
+
+            return productUpdated;
+        }
+    }
+
+    public ProductUpdated addPromotedProduct(Integer id) {
+        ProductUpdated productUpdated = new ProductUpdated();
+        Optional<Product> result = productRepository.findById(id);
+
+        if (result.isPresent()) {
+            Product entity = result.get();
+            entity.setPromovat((byte) 1);
+
+            productUpdated.setProduct(productRepository.save(entity));
+            productUpdated.setStatusCode(202);
+
+            return productUpdated;
+        } else {
+            productUpdated.setError("Product not found");
+            productUpdated.setStatusCode(404);
+
+            return productUpdated;
+        }
+    }
+
+    public ProductUpdated removePromotedProduct(Integer id) {
+        ProductUpdated productUpdated = new ProductUpdated();
+        Optional<Product> result = productRepository.findById(id);
+
+        if (result.isPresent()) {
+            Product entity = result.get();
+            entity.setPromovat((byte) 0);
+
+            productUpdated.setProduct(productRepository.save(entity));
+            productUpdated.setStatusCode(202);
+
+            return productUpdated;
+        } else {
+            productUpdated.setError("Product not found");
+            productUpdated.setStatusCode(404);
 
             return productUpdated;
         }
