@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public SingleProduct byId(@RequestHeader Integer id){
+    public SingleProduct byId(@PathVariable Integer id){
         SingleProduct result = productService.findById(id);
         return result;
     }
@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ProductUpdated update(@RequestHeader Integer id, @RequestBody Product product) {
+    public ProductUpdated update(@PathVariable Integer id, @RequestBody Product product) {
         ProductUpdated result = productService.update(id, product);
         return result;
     }
