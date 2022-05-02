@@ -23,20 +23,22 @@ public class Product {
     private Date date;
     private Integer stock;
     private Integer year;
-    private String strap;
-    private String glass;
-    private String strapColor;
+    private Integer strap;
+    private Integer glass;
+    private Integer strap_color;
     private Integer water_resistence;
-    private String carcase;
-    private String carcase_form;
-    private String carcase_color;
+    private Integer carcase;
+    private Integer carcase_form;
+    private Integer carcase_color;
     private Integer carcase_thickness;
     private Byte alarm;
     private Byte timer;
-    private String mechanism;
+    private Integer mechanism;
     private Integer rating;
-    private String gen;
+    private Byte gen;
     private String category;
+    private Integer brand;
+    private Integer model;
 
     @Override
     public boolean equals(Object o) {

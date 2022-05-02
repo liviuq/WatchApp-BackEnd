@@ -38,9 +38,10 @@ public class ProductController {
         return productService.findAllCategories();
     }
 
-    @PostMapping()
-    public ProductAdded add(@RequestBody Product product) {
-       ProductAdded result = productService.add(product);
+    @PostMapping("{userId}")
+    public ProductAdded add(@PathVariable Integer userId, @RequestBody Product product) {
+        product.setUser_id(userId);
+        ProductAdded result = productService.add(product, userId);
        return result;
     }
 
