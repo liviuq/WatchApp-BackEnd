@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // require authentication on all paths except the home page
-                .mvcMatchers("/", "/user", "/product").permitAll()
-                .antMatchers(POST,"/user/register", "/favorites/*","/product/*").permitAll()
+                .mvcMatchers("/", "/user", "/product","/product/*").permitAll()
+                .antMatchers(POST,"/user/register", "/favorites/*","/product/*", "/product").permitAll()
                 .antMatchers(DELETE,"/favorites/delete/*", "/homepage/*/delete/*").permitAll()
                 .anyRequest().authenticated()
                 // enable users to login with Auth0
