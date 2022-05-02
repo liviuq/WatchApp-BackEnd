@@ -31,4 +31,9 @@ public class CartController {
 
     @GetMapping("{id}")
     public Cart listCart(@PathVariable Integer id){ return cartService.findById(id); }
+
+    @PostMapping("insert")
+    public Cart addToCart(@RequestBody Cart cart){
+        return cartService.saveToCart(cart);
+    }
 }

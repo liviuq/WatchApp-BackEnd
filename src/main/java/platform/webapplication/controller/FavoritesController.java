@@ -7,6 +7,7 @@ import platform.webapplication.repository.FavoritesRepository;
 import platform.webapplication.service.FavoritesService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/favorites")
@@ -24,7 +25,7 @@ public class FavoritesController {
         favoritesService.deleteById(id);
     }
 
-    @PostMapping("{userId}")
+    @PostMapping("insert/{userId}")
     public Favorites addProductToFavorites(@Valid @RequestBody Favorites favorite, @PathVariable Integer userId) {
         if(favorite.getUser_id().equals(userId)) {
             return favoritesService.saveProduct(favorite);
@@ -33,5 +34,11 @@ public class FavoritesController {
             System.out.println("Favorite product has a different user id than the path one.");
             return favorite;
         }
+    }
+
+    @GetMapping("list/{userId}")
+    public List<Favorites> listFavorites(@PathVariable Integer userId){
+        List<Favorites> favorites = favoritesService.findAllUserId(userId);
+        return favorites;
     }
 }

@@ -34,6 +34,19 @@ public class FavoritesService {
         return favorites;
     }
 
+    public List<Favorites> findAllUserId(Integer userId) {
+
+        var it = favoritesRepository.findAll();
+
+        ArrayList<Favorites> favorites = new ArrayList<>();
+//        it.forEach(e -> favorites.add(e));
+          for(Favorites favorite :it){
+              if(favorite.getUser_id().equals(userId))
+                  favorites.add(favorite);
+          }
+        return favorites;
+    }
+
     public Long count() {
         return favoritesRepository.count();
     }
