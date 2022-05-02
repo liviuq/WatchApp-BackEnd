@@ -36,6 +36,7 @@ public class Product {
     private String mechanism;
     private Integer rating;
     private String gen;
+    private Byte promovat;
     private String category;
 
     @Override
