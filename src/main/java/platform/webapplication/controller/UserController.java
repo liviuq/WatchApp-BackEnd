@@ -3,6 +3,7 @@ package platform.webapplication.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.enitites.User;
+import platform.webapplication.models.UserUpdated;
 import platform.webapplication.service.UserService;
 
 import java.util.List;
@@ -32,5 +33,11 @@ public class UserController {
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Integer id) {
         userService.deleteById(id);
+    }
+
+    @PutMapping("{id}")
+    public UserUpdated update(@RequestHeader Integer id, @RequestBody User user) {
+        UserUpdated result = userService.update(id, user);
+        return result;
     }
 }

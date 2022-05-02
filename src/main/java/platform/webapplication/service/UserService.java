@@ -2,11 +2,15 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import platform.webapplication.enitites.Product;
 import platform.webapplication.enitites.User;
+import platform.webapplication.models.ProductUpdated;
+import platform.webapplication.models.UserUpdated;
 import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -41,5 +45,27 @@ public class UserService {
 
     public void deleteById(Integer userId) {
         userRepository.deleteById(userId);
+    }
+
+    public UserUpdated update(Integer id, User user) {
+        UserUpdated userUpdated = new UserUpdated();
+        Optional<User> result = userRepository.findById(id);
+
+        if (result.isEmpty()) {
+            userUpdated.setError("Product not found");
+            userUpdated.setStatusCode(404);
+
+            return userUpdated;
+        } else {
+            User entity = result.get();
+            Integer identifier = entity.getId();
+            entity = user;
+            entity.setId(identifier);
+
+            userUpdated.setUser(userRepository.save(entity));
+            userUpdated.setStatusCode(202);
+
+            return userUpdated;
+        }
     }
 }
