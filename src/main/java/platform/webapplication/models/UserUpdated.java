@@ -1,7 +1,7 @@
 package platform.webapplication.models;
 
 import lombok.*;
-import platform.webapplication.enitites.User;
+import platform.webapplication.entities.User;
 
 import java.util.Objects;
 
