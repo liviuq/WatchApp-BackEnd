@@ -2,11 +2,14 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import platform.webapplication.models.Users.AllUsers;
+import platform.webapplication.models.Users.SingleUser;
+import platform.webapplication.models.Users.UserUpdated;
 import platform.webapplication.entities.User;
 import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,21 +20,29 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public List<User> findAll() {
-
+    public AllUsers findAll() {
         var it = userRepository.findAll();
 
+        if(it.isEmpty())
+        {
+            return new AllUsers(new ArrayList<User>(), "", 200);
+        }
         var users = new ArrayList<User>();
         it.forEach(e -> users.add(e));
 
-        return users;
+        return new AllUsers(users, "", 200);
     }
 
-    public User findById(Integer id) {
+    public SingleUser findById(Integer id) {
 
-        var user = userRepository.findById(id);
-        return user.orElse(null);
+        var result = userRepository.findById(id);
+
+        if(result.isEmpty()){
+            return new SingleUser(null, "User not found", 404);
+        }
+        SingleUser user = new SingleUser(result.get(), "", 200);
+
+        return user;
     }
 
     public Long count() {
@@ -41,5 +52,27 @@ public class UserService {
 
     public void deleteById(Integer userId) {
         userRepository.deleteById(userId);
+    }
+
+    public UserUpdated update(Integer id, User user) {
+        UserUpdated userUpdated = new UserUpdated();
+        Optional<User> result = userRepository.findById(id);
+
+        if (result.isEmpty()) {
+            userUpdated.setError("Product not found");
+            userUpdated.setStatusCode(404);
+
+            return userUpdated;
+        } else {
+            User entity = result.get();
+            Integer identifier = entity.getId();
+            entity = user;
+            entity.setId(identifier);
+
+            userUpdated.setUser(userRepository.save(entity));
+            userUpdated.setStatusCode(202);
+
+            return userUpdated;
+        }
     }
 }

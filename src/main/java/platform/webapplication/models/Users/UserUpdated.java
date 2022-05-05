@@ -1,7 +1,7 @@
-package platform.webapplication.models;
+package platform.webapplication.models.Users;
 
 import lombok.*;
-import platform.webapplication.entities.Product;
+import platform.webapplication.entities.User;
 
 import java.util.Objects;
 
@@ -10,8 +10,8 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class ProductUpdated {
-    private Product product = new Product();
+public class UserUpdated {
+    private User user = new User();
     private String error = "";
     private int statusCode = 500;
 
@@ -20,12 +20,12 @@ public class ProductUpdated {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductUpdated that = (ProductUpdated) o;
-        return statusCode == that.statusCode && Objects.equals(product, that.product) && Objects.equals(error, that.error);
+        UserUpdated that = (UserUpdated) o;
+        return statusCode == that.statusCode && Objects.equals(user, that.user) && Objects.equals(error, that.error);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, error, statusCode);
+        return Objects.hash(user, error, statusCode);
     }
 }
