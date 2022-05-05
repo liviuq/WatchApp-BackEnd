@@ -8,6 +8,7 @@ import platform.webapplication.models.Products.ProductAdded;
 import platform.webapplication.models.Products.ProductUpdated;
 import platform.webapplication.models.Products.SingleProduct;
 import platform.webapplication.repository.ProductRepository;
+import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,13 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+    private UserRepository  userRepository;
 
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
     }
 
     public AllProducts findAll() {
@@ -57,8 +60,16 @@ public class ProductService {
         productRepository.deleteById(productId);
     }
 
-    public ProductAdded add(Product product) {
+    public ProductAdded add(Product product, Integer userId) {
         ProductAdded productAdded = new ProductAdded();
+        var user = userRepository.findById(userId);
+
+        if(user == null){
+            productAdded.setError("User inexistet! Daca doriti sa adaugati un produs, intai trebuie sa va conectati");
+            productAdded.setStatusCode(404);
+            return productAdded;
+        }
+
         var result = productRepository.save(product);
 
         if (result == null) {

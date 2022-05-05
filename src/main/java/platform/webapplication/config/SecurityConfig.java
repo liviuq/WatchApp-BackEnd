@@ -21,12 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.authorizeRequests()
                 // require authentication on all paths except the home page
                 .mvcMatchers("/", "/user", "/product","/product/*").permitAll()
-                .antMatchers(POST,"/user/register", "/favorites/*","/product/*").permitAll()
+                .antMatchers(POST,"/user/register", "/favorites/*","/product/*", "/product").permitAll()
                 .antMatchers(DELETE,"/favorites/delete/*", "/homepage/*/delete/*").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 // enable users to login with Auth0
                 .and().oauth2Login()
                 .and().logout()
