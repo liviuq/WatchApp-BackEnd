@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Cart;
 import platform.webapplication.entities.Product;
+import platform.webapplication.models.Cart.AllCart;
 import platform.webapplication.models.Cart.CartAdded;
+import platform.webapplication.models.Cart.SingleCart;
 import platform.webapplication.service.CartService;
 import platform.webapplication.service.ProductService;
 
@@ -28,13 +30,14 @@ public class CartController {
     }
 
     @GetMapping()
-    public List<Cart> listCartProducts(){ return cartService.findAll(); }
+    public AllCart listCartProducts(){ return cartService.findAll(); }
 
     @GetMapping("{id}")
-    public Cart listCart(@PathVariable Integer id){ return cartService.findById(id); }
+    public SingleCart listCart(@PathVariable Integer id){ return cartService.findById(id); }
 
     @PostMapping("insert")
     public CartAdded add(@RequestBody Cart cart, @PathVariable Integer userId){
-        CartAdded result = cartService.addC
+        CartAdded result = cartService.saveToCart(cart, userId);
+        return result;
     }
 }
