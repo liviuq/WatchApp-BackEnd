@@ -51,15 +51,27 @@ public class ProductController {
 
     @DeleteMapping("{user_id}/delete/{id}")
     public ProductDeleted deleteUserProduct(@PathVariable Integer user_id, @PathVariable Integer id){
-        if(productService.getUserId(id).equals(user_id))
+        //check to see if product id exists
+        for(Product product : productService.findAll().getProducts())
         {
-            productService.deleteById(id);
-            return new ProductDeleted(id, "", 200);
+            //product with this id exists.
+            if(product.getId().equals(id))
+            {
+                //check to see if this product belongs to user_id
+                if(productService.getUserId(id).equals(user_id))
+                {
+                    productService.deleteById(id);
+                    return new ProductDeleted(id, "", 200);
+                }
+                else
+                {
+                    return new ProductDeleted(id, "Product with this id does not belong to user", 200);
+                }
+            }
         }
-        else
-        {
-            return new ProductDeleted(id, "Product with this id does not belong to user", 200);
-        }
+
+        //product not found
+        return new ProductDeleted(id, "This product id does not exist in the database", 200);
     }
 
     //list your own products
