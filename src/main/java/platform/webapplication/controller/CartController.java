@@ -3,8 +3,9 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import platform.webapplication.model.Cart;
-import platform.webapplication.model.Product;
+import platform.webapplication.entities.Cart;
+import platform.webapplication.entities.Product;
+import platform.webapplication.models.Cart.CartAdded;
 import platform.webapplication.service.CartService;
 import platform.webapplication.service.ProductService;
 
@@ -33,7 +34,7 @@ public class CartController {
     public Cart listCart(@PathVariable Integer id){ return cartService.findById(id); }
 
     @PostMapping("insert")
-    public Cart addToCart(@RequestBody Cart cart){
-        return cartService.saveToCart(cart);
+    public CartAdded add(@RequestBody Cart cart, @PathVariable Integer userId){
+        CartAdded result = cartService.addC
     }
 }
