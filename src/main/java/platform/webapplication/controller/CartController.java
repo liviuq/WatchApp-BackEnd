@@ -1,49 +1,39 @@
-package platform.webapplication.service;
+package platform.webapplication.controller;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 import platform.webapplication.model.Cart;
-import platform.webapplication.model.Order;
-import platform.webapplication.repository.CartRepository;
+import platform.webapplication.model.Product;
+import platform.webapplication.service.CartService;
+import platform.webapplication.service.ProductService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class CartService {
+@RestController
+@RequestMapping(path="/cart")
+public class CartController {
 
-    private CartRepository cartRepository;
+    private final CartService cartService;
 
     @Autowired
-    public CartService(CartRepository cartRepository){
-        this.cartRepository = cartRepository;
-    }
-    public List<Cart> findAll() {
-
-        var it = cartRepository.findAll();
-
-        ArrayList<Cart> carts = new ArrayList<Cart>();
-        it.forEach(e -> carts.add(e));
-
-        return carts;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
-    public Cart findById(Integer id)
-    {
-        var cart = cartRepository.findById(id);
-        return cart.orElse(null);
+    @DeleteMapping("delete/{id}")
+    public void delete(@PathVariable Integer id) {
+        cartService.deleteById(id);
     }
 
-    public Long count() {
+    @GetMapping()
+    public List<Cart> listCartProducts(){ return cartService.findAll(); }
 
-        return cartRepository.count();
-    }
+    @GetMapping("{id}")
+    public Cart listCart(@PathVariable Integer id){ return cartService.findById(id); }
 
-    public void deleteById(Integer cartId) {
-        cartRepository.deleteById(cartId);
-    }
-
-    public Cart saveToCart(Cart cart){
-        return cartRepository.save(cart);
+    @PostMapping("insert")
+    public Cart addToCart(@RequestBody Cart cart){
+        return cartService.saveToCart(cart);
     }
 }

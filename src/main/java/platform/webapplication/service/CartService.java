@@ -2,7 +2,8 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.entities.Cart;
+import platform.webapplication.model.Cart;
+import platform.webapplication.model.Order;
 import platform.webapplication.repository.CartRepository;
 
 import java.util.ArrayList;
@@ -27,6 +28,12 @@ public class CartService {
         return carts;
     }
 
+    public Cart findById(Integer id)
+    {
+        var cart = cartRepository.findById(id);
+        return cart.orElse(null);
+    }
+
     public Long count() {
 
         return cartRepository.count();
@@ -35,4 +42,9 @@ public class CartService {
     public void deleteById(Integer cartId) {
         cartRepository.deleteById(cartId);
     }
+
+    public Cart saveToCart(Cart cart){
+        return cartRepository.save(cart);
+    }
 }
+
