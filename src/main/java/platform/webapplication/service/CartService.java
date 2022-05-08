@@ -38,15 +38,15 @@ public class CartService {
 
     public CartAdded saveToCart(Cart cart, Integer pathId){
         Integer productId = cart.getProduct_id();
-        Integer userId = cart.getUser_id();
-        if(!cart.getUser_id().equals(pathId)) {
+        Integer buyerId = cart.getBuyer_id();
+        if(!cart.getBuyer_id().equals(pathId)) {
             System.out.println("Favorite product has a different user id than the path one.");
             return new CartAdded(new Cart(),"Favorite product has a different user id than the path one.",404);
         }
 
         AllCart cartProducts = findAll();
         for(Cart c : cartProducts.getCart()) {
-            if(c.getProduct_id().equals(productId) && c.getUser_id().equals(userId)) {
+            if(c.getProduct_id().equals(productId) && c.getBuyer_id().equals(buyerId)) {
                 return new CartAdded(new Cart(),"Product already exists in Favorites List!",404);
             }
         }
@@ -63,7 +63,7 @@ public class CartService {
 
         AllUsers users = userService.findAll();
         for(User u : users.getUsers()) {
-            if(u.getId().equals(userId)) {
+            if(u.getId().equals(buyerId)) {
                 validUser = true;
                 break;
             }

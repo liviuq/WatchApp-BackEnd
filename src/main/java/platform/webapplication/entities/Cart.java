@@ -23,7 +23,9 @@ public class Cart {
     @NotNull(message = "Product id should not be null!")
     private Integer product_id;
     @NotNull(message = "User id should not be null!")
-    private Integer user_id;
+    private Integer buyer_id;
+    @NotNull(message = "User id should not be null!")
+    private Integer seller_id;
 
     @Override
     public boolean equals(Object o) {
