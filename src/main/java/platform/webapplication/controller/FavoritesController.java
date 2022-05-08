@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Favorites;
 import platform.webapplication.models.Favorites.AllFavorites;
 import platform.webapplication.models.Favorites.FavoriteAdded;
+import platform.webapplication.models.Favorites.FavoriteExtracted;
 import platform.webapplication.service.FavoritesService;
 
 import javax.validation.Valid;
@@ -21,6 +22,11 @@ public class FavoritesController {
     @GetMapping("list/{userId}")
     public AllFavorites all(@PathVariable Integer userId) {
         return favoritesService.findAllUserId(userId);
+    }
+
+    @GetMapping("extract/{userId}")
+    public FavoriteExtracted exctract(@PathVariable Integer userId) {
+        return favoritesService.findFavoriteExtract(userId);
     }
 
     @PostMapping("insert/{userId}")
