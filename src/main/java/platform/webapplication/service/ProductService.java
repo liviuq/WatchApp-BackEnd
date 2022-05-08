@@ -155,4 +155,12 @@ public class ProductService {
             return productUpdated;
         }
     }
+
+    public Integer getUserId(Integer id) {
+        return productRepository.getById(id).getUser_id();
+    }
+
+    public boolean checkUserExists(Integer id) {
+        return userRepository.findById(id).isPresent();
+    }
 }

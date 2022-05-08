@@ -3,12 +3,10 @@ package platform.webapplication.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Product;
-import platform.webapplication.models.Products.AllProducts;
-import platform.webapplication.models.Products.ProductAdded;
-import platform.webapplication.models.Products.ProductUpdated;
-import platform.webapplication.models.Products.SingleProduct;
+import platform.webapplication.models.Products.*;
 import platform.webapplication.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,5 +47,41 @@ public class ProductController {
     public ProductUpdated update(@PathVariable Integer id, @RequestBody Product product) {
         ProductUpdated result = productService.update(id, product);
         return result;
+    }
+
+    @DeleteMapping("{user_id}/delete/{id}")
+    public ProductDeleted deleteUserProduct(@PathVariable Integer user_id, @PathVariable Integer id){
+        if(productService.getUserId(id).equals(user_id))
+        {
+            productService.deleteById(id);
+            return new ProductDeleted(id, "", 200);
+        }
+        else
+        {
+            return new ProductDeleted(id, "Product with this id does not belong to user", 200);
+        }
+    }
+
+    //list your own products
+    @GetMapping("{user_id}/products")
+    public AllProducts getUserProducts(@PathVariable Integer user_id) {
+        //check to see if user_id exists
+        if(productService.checkUserExists(user_id))
+        {
+            //creating the array of products that belong to user_id
+            List<Product> products = new ArrayList<>();
+            for(Product product : productService.findAll().getProducts())
+            {
+                //verify that product belongs to user_id
+                if(product.getUser_id().equals(user_id))
+                {
+                    //add product to the array
+                    products.add(product);
+                }
+            }
+            return new AllProducts(products, "", 200);
+        }
+
+        return new AllProducts(new ArrayList<>(), "User has no products", 200);
     }
 }
