@@ -6,6 +6,7 @@ import platform.webapplication.entities.Product;
 import platform.webapplication.models.Products.*;
 import platform.webapplication.service.ProductService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +39,14 @@ public class ProductController {
     }
 
     @PostMapping("{userId}")
-    public ProductAdded add(@PathVariable Integer userId, @RequestBody Product product) {
+    public ProductAdded add(@PathVariable Integer userId, @Valid @RequestBody Product product) {
         product.setUser_id(userId);
         ProductAdded result = productService.add(product, userId);
        return result;
     }
 
     @PutMapping("{id}")
-    public ProductUpdated update(@PathVariable Integer id, @RequestBody Product product) {
+    public ProductUpdated update(@PathVariable Integer id, @Valid @RequestBody Product product) {
         ProductUpdated result = productService.update(id, product);
         return result;
     }
