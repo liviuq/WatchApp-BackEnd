@@ -30,7 +30,7 @@ public class CartService {
 
         var it = cartRepository.findAll();
         if(it.isEmpty()){
-            return new AllCart(new ArrayList<Cart>(),"Cart is Empty",200);
+            return new AllCart(new ArrayList<Cart>(),"Cart is Empty",204);
         }
 
         var cart = new ArrayList<Cart>(it);
