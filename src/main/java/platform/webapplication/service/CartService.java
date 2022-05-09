@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import platform.webapplication.entities.*;
 import platform.webapplication.models.Cart.AllCart;
 import platform.webapplication.models.Cart.CartAdded;
+import platform.webapplication.models.Cart.CartDeleted;
 import platform.webapplication.models.Cart.SingleCart;
 import platform.webapplication.models.Products.AllProducts;
 import platform.webapplication.models.Users.AllUsers;
 import platform.webapplication.repository.CartRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CartService {
@@ -89,13 +91,28 @@ public class CartService {
 
     public SingleCart findById(Integer id)
     {
-        var result = cartRepository.findById(id);
-        if(result.isEmpty())
+        System.out.printf("Doamne ajuta\n");
+        var allCart = cartRepository.findAll();
+        for(Cart cart : allCart)
         {
-            return new SingleCart(null,"Product not found",404);
+            if(cart.getBuyer_id().equals(id))
+            {
+                return new SingleCart(cart, "", 200);
+            }
         }
-        SingleCart cart = new SingleCart(result.get(),"",200);
-        return cart;
+        return new SingleCart(new Cart(), "", 200);
+    }
+
+    public SingleCart findByIdFromUser(Integer buyer_id, Integer id) {
+        var allCart = findUserCart(buyer_id);
+        for(Cart cart : allCart.getCart())
+        {
+            if(cart.getId().equals(id))
+            {
+                return new SingleCart(cart, "", 200);
+            }
+        }
+        return new SingleCart(new Cart(), "Product not found in user's cart", 200);
     }
 
     public Long count() {
@@ -103,9 +120,30 @@ public class CartService {
         return cartRepository.count();
     }
 
-    public void deleteById(Integer cartId) {
-        cartRepository.deleteById(cartId);
+    public CartDeleted deleteById(Integer buyer_id, Integer cartId) {
+        SingleCart currentCart = this.findById(cartId);
+        if(currentCart.getCart().getBuyer_id().equals(buyer_id))
+        {
+            cartRepository.deleteById(cartId);
+            return new CartDeleted(cartId, "", 200);
+        }
+        else
+        {
+            return new CartDeleted(cartId, "Product does not belong to user", 200);
+        }
     }
 
+    public AllCart findUserCart(Integer buyer_id) {
+        var allCart = cartRepository.findAll();
+        List<Cart> returnedCart = new ArrayList<>();
+        for(Cart cart : allCart)
+        {
+            if(cart.getBuyer_id().equals(buyer_id))
+            {
+                returnedCart.add(cart);
+            }
+        }
+        return new AllCart(returnedCart, "", 200);
+    }
 }
 
