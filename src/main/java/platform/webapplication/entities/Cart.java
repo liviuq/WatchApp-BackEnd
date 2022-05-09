@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -19,8 +20,11 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "Product id should not be null!")
     private Integer product_id;
+    @NotNull(message = "User id should not be null!")
     private Integer buyer_id;
+    @NotNull(message = "User id should not be null!")
     private Integer seller_id;
 
     @Override
@@ -35,4 +39,5 @@ public class Cart {
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }
