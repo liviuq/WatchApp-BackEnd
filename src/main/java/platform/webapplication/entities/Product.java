@@ -40,6 +40,7 @@ public class Product {
     private Integer mechanism;
     private Integer rating;
     private Byte gen;
+    @NotNull(message = "Promoved type should not be null!")
     private Byte promovat;
     private String category;
     private Integer brand;
