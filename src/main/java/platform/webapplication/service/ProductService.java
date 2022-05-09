@@ -31,7 +31,7 @@ public class ProductService {
 
         if (it.isEmpty()) {
 
-            return new AllProducts(new ArrayList<Product>(), "", 200);
+            return new AllProducts(new ArrayList<Product>(), "", 204);
         }
         var products = new ArrayList<Product>();
         it.forEach(e -> products.add(e));

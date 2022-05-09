@@ -33,7 +33,7 @@ public class FavoritesService {
 
         var it = favoritesRepository.findAll();
         if(it.isEmpty()) {
-            return new AllFavorites(new ArrayList<Favorites>(), "", 200);
+            return new AllFavorites(new ArrayList<Favorites>(), "", 204);
         }
 
         var favorites = new ArrayList<Favorites>(it);

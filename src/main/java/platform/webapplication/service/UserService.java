@@ -25,7 +25,7 @@ public class UserService {
 
         if(it.isEmpty())
         {
-            return new AllUsers(new ArrayList<User>(), "", 200);
+            return new AllUsers(new ArrayList<User>(), "", 204);
         }
         var users = new ArrayList<User>();
         it.forEach(e -> users.add(e));
