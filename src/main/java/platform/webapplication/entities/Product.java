@@ -26,9 +26,12 @@ public class Product {
     private Float price;
     private Date date;
     private Integer stock;
+    @NotNull(message = "Year should not be null!")
     private Integer year;
+    @NotNull(message = "Strap should not be null!")
     private Integer strap;
     private Integer glass;
+    @NotNull(message = "Strap color should not be null!")
     private Integer strap_color;
     private Integer water_resistence;
     private Integer carcase;
@@ -37,13 +40,18 @@ public class Product {
     private Integer carcase_thickness;
     private Byte alarm;
     private Byte timer;
+    @NotNull(message = "Mechanism should not be null!")
     private Integer mechanism;
     private Integer rating;
+    @NotNull(message = "Gender should not be null!")
     private Byte gen;
-    @NotNull(message = "Promoved type should not be null!")
+    @NotNull(message = "Condition should not be null!")
+    private String condition;
     private Byte promovat;
     private String category;
+    @NotNull(message = "Brand should not be null!")
     private Integer brand;
+    @NotNull(message = "Model should not be null!")
     private Integer model;
 
     @Override

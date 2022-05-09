@@ -35,9 +35,10 @@ public class User {
     @NotNull(message = "Birthdate should not be null!")
     private Date birth_date;
     private String city;
+    @NotNull(message = "Country should not be null!")
     private String county;
-    @NotNull(message = "Address should not be null!")
-    private String address;
+    @NotNull(message = "Street should not be null!")
+    private String street;
     private String postal_code;
     @NotNull(message = "Phone number should not be null!")
     private String phone_number;
