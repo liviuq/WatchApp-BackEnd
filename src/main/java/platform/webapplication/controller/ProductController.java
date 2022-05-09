@@ -9,6 +9,7 @@ import platform.webapplication.service.ProductService;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path="/product")
 public class ProductController {
