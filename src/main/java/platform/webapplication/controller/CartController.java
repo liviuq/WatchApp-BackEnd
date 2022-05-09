@@ -9,6 +9,7 @@ import platform.webapplication.models.Cart.*;
 import platform.webapplication.service.CartService;
 import platform.webapplication.service.ProductService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200", "https://watchappa3.herokuapp.com"})
@@ -40,7 +41,7 @@ public class CartController {
 //    public AllCart listCart(@PathVariable Integer buyer_id){ return cartService.findUserCart(buyer_id); }
 
     @PostMapping("{buyer_id}/insert")
-    public CartAdded add(@RequestBody Cart cart, @PathVariable Integer buyer_id){
+    public CartAdded add(@Valid @RequestBody Cart cart, @PathVariable Integer buyer_id){
         CartAdded result = cartService.saveToCart(cart, buyer_id);
         return result;
     }
