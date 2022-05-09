@@ -42,8 +42,8 @@ public class CartController {
     public AllCart listCart(@PathVariable Integer buyer_id){ return cartService.findUserCart(buyer_id); }
 
     @PostMapping("{buyer_id}/insert")
-    public CartAdded add(@RequestBody Cart cart, @PathVariable Integer userId){
-        CartAdded result = cartService.saveToCart(cart, userId);
+    public CartAdded add(@RequestBody Cart cart, @PathVariable Integer buyer_id){
+        CartAdded result = cartService.saveToCart(cart, buyer_id);
         return result;
     }
 

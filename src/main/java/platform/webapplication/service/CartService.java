@@ -91,7 +91,6 @@ public class CartService {
 
     public SingleCart findById(Integer id)
     {
-        System.out.printf("Doamne ajuta\n");
         var allCart = cartRepository.findAll();
         for(Cart cart : allCart)
         {

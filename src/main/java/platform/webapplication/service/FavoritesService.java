@@ -96,6 +96,18 @@ public class FavoritesService {
         return extractedList;
     }
 
+    public FavoriteExtractedProduct findFavoriteExtractProduct(Integer userId, Integer productId) {
+        FavoriteExtracted favoriteExtracted = findFavoriteExtract(userId);
+
+        for(FavoriteUtils favoriteUtils : favoriteExtracted.getFavoriteUtilsList()) {
+            if(favoriteUtils.getId().equals(productId)) {
+                return new FavoriteExtractedProduct(favoriteUtils, "", 200);
+            }
+        }
+
+        return new FavoriteExtractedProduct(new FavoriteUtils(), "", 200);
+    }
+
     public SingleFavorite findById(Integer id) {
         var result = favoritesRepository.findById(id);
         if(result.isEmpty()) {
