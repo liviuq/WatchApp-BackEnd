@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,8 +18,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "User id should not be null!")
     private Integer user_id;
+    @NotNull(message = "Name should not be null!")
     private String name;
+    @NotNull(message = "Price should not be null!")
     private Float price;
     private Date date;
     private Integer stock;
