@@ -3,12 +3,11 @@ package platform.webapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import platform.webapplication.entities.*;
-import platform.webapplication.models.Cart.AllCart;
-import platform.webapplication.models.Cart.CartAdded;
-import platform.webapplication.models.Cart.CartDeleted;
-import platform.webapplication.models.Cart.SingleCart;
+import platform.webapplication.models.Cart.*;
 import platform.webapplication.models.Products.AllProducts;
+import platform.webapplication.models.Products.SingleProduct;
 import platform.webapplication.models.Users.AllUsers;
+import platform.webapplication.models.Users.SingleUser;
 import platform.webapplication.repository.CartRepository;
 
 import java.util.ArrayList;
@@ -91,7 +90,6 @@ public class CartService {
 
     public SingleCart findById(Integer id)
     {
-        System.out.printf("Doamne ajuta\n");
         var allCart = cartRepository.findAll();
         for(Cart cart : allCart)
         {
@@ -133,17 +131,48 @@ public class CartService {
         }
     }
 
-    public AllCart findUserCart(Integer buyer_id) {
+    public AllCart findUserCart(Integer buyerId) {
         var allCart = cartRepository.findAll();
         List<Cart> returnedCart = new ArrayList<>();
         for(Cart cart : allCart)
         {
-            if(cart.getBuyer_id().equals(buyer_id))
+            if(cart.getBuyer_id().equals(buyerId))
             {
                 returnedCart.add(cart);
             }
         }
         return new AllCart(returnedCart, "", 200);
+    }
+
+    public CartTotalPrice findCartExtracted(Integer buyerId){
+        AllCart allCart = findUserCart(buyerId);
+        List<CartUtils> cartUtilsList = new ArrayList<>();
+        Float totalPrice = 0f;
+
+        for(Cart cart : allCart.getCart()){
+            SingleProduct singleProduct = productService.findById(cart.getProduct_id());
+            SingleUser singleUser = userService.findById(buyerId);
+            CartUtils cartUtils = new CartUtils();
+
+            cartUtils.setId(cart.getId());
+            cartUtils.setName(singleProduct.getProduct().getName());
+            cartUtils.setPrice(singleProduct.getProduct().getPrice());
+            cartUtils.setBuyer(singleUser.getUser().getUser_name());
+
+            cartUtilsList.add(cartUtils);
+
+            totalPrice+=cartUtils.getPrice();
+        }
+        return new CartTotalPrice(new CartExtracted(cartUtilsList,"",200),totalPrice);
+    }
+
+    public CartExtractedProduct findCartExtractedProduct(Integer buyerId, Integer cartId){
+        CartTotalPrice cartTotalPrice = findCartExtracted(buyerId);
+        for(CartUtils cartUtils : cartTotalPrice.getCartExtracted().getCartUtils()){
+            if(cartUtils.getId().equals(cartId))
+                return new CartExtractedProduct(cartUtils,"",200);
+        }
+        return new CartExtractedProduct(new CartUtils(),"Product not found in user's cart",200);
     }
 }
 
