@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,9 +21,13 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "Transmitter id should not be null!")
     private Integer from_user;
+    @NotNull(message = "Receiver id should not be null!")
     private Integer to_user;
+    @NotNull(message = "Date should not be null!")
     private Date time;
+    @NotNull(message = "Message cannot be empty!")
     private String  text;
 
     @Override
