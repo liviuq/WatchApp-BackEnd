@@ -21,7 +21,6 @@ public class Product {
     private String name;
     private Float price;
     private Date date;
-    private Integer stock;
     private Integer year;
     private Integer strap;
     private Integer glass;
