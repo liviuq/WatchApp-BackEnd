@@ -10,7 +10,7 @@ import platform.webapplication.service.UserService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://watchappa3.herokuapp.com"})
 @RestController
 @RequestMapping(path="/user")
 public class UserController {

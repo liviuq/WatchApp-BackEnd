@@ -11,7 +11,7 @@ import platform.webapplication.service.ProductService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "https://watchappa3.herokuapp.com"})
 @RestController
 @RequestMapping(path="/cart")
 public class CartController {
