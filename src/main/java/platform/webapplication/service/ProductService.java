@@ -122,7 +122,9 @@ public class ProductService {
 
         if (result.isPresent()) {
             Product entity = result.get();
-            entity.setPromovat((byte) 1);
+            if(entity.getPromovat() == 0) {
+                entity.setPromovat((byte) 1);
+            }
 
             productUpdated.setProduct(productRepository.save(entity));
             productUpdated.setStatusCode(202);
@@ -142,7 +144,9 @@ public class ProductService {
 
         if (result.isPresent()) {
             Product entity = result.get();
-            entity.setPromovat((byte) 0);
+            if(entity.getPromovat() == 1) {
+                entity.setPromovat((byte) 0);
+            }
 
             productUpdated.setProduct(productRepository.save(entity));
             productUpdated.setStatusCode(202);
