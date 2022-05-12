@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:4200", "https://watchappa3.herokuapp.com", "http://109.98.9.129:5000"})
+@CrossOrigin(origins = {"http://localhost:4200", "https://watchappa3.herokuapp.com"})
 @RestController
 @RequestMapping(path="/product")
 public class ProductController {
