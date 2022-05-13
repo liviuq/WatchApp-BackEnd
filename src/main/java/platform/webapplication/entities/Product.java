@@ -32,7 +32,7 @@ public class Product {
     private String glass;
     @NotNull(message = "Strap color should not be null!")
     private String strap_color;
-    private String water_resistence;
+    private Integer water_resistence;
     private String carcase;
     private String carcase_form;
     private String carcase_color;
@@ -44,8 +44,6 @@ public class Product {
     private Integer rating;
     @NotNull(message = "Gender should not be null!")
     private Byte gen;
-    @NotNull(message = "Condition should not be null!")
-    private String condition;
     private Byte promovat;
     private String category;
     @NotNull(message = "Brand should not be null!")

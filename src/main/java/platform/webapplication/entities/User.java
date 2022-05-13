@@ -37,8 +37,8 @@ public class User {
     private String city;
     @NotNull(message = "Country should not be null!")
     private String county;
-    @NotNull(message = "Street should not be null!")
-    private String street;
+    @NotNull(message = "Address should not be null!")
+    private String address;
     private String postal_code;
     @NotNull(message = "Phone number should not be null!")
     private String phone_number;
