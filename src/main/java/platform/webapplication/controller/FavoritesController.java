@@ -12,7 +12,7 @@ import platform.webapplication.service.FavoritesService;
 
 import javax.validation.Valid;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path="/favorites")
 public class FavoritesController {
