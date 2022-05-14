@@ -32,7 +32,7 @@ public class FavoritesService {
     public AllFavorites findAll() {
 
         var it = favoritesRepository.findAll();
-        if(it.isEmpty()) {
+        if (it.isEmpty()) {
             return new AllFavorites(new ArrayList<Favorites>(), "", 204);
         }
 
@@ -45,13 +45,13 @@ public class FavoritesService {
         var it = favoritesRepository.findAll();
 
         List<Favorites> favorites = new ArrayList<>();
-        for(Favorites fav : it) {
-            if(fav.getUser_id().equals(userId)) {
+        for (Favorites fav : it) {
+            if (fav.getUser_id().equals(userId)) {
                 favorites.add(fav);
             }
         }
 
-        if(it.isEmpty()) {
+        if (it.isEmpty()) {
             return new AllFavorites(new ArrayList<>(), "", 200);
         }
         var allFavorites = new AllFavorites(favorites, "", 200);
@@ -65,18 +65,18 @@ public class FavoritesService {
 
         List<Favorites> favorites = new ArrayList<>();
 
-        for(Favorites fav : it) {
-            if(fav.getUser_id().equals(userId)) {
+        for (Favorites fav : it) {
+            if (fav.getUser_id().equals(userId)) {
                 favorites.add(fav);
             }
         }
 
-        if(it.isEmpty()) {
+        if (it.isEmpty()) {
             return new FavoriteExtracted(new ArrayList<>(), "", 200);
         }
 
         List<FavoriteUtils> favoriteUtilsList = new ArrayList<>();
-        for(Favorites fav : favorites) {
+        for (Favorites fav : favorites) {
 
             SingleProduct singleProduct = productService.findById(fav.getProduct_id());
             SingleUser singleUser = userService.findById(singleProduct.getProduct().getUser_id());
@@ -99,8 +99,8 @@ public class FavoritesService {
     public FavoriteExtractedProduct findFavoriteExtractProduct(Integer userId, Integer productId) {
         FavoriteExtracted favoriteExtracted = findFavoriteExtract(userId);
 
-        for(FavoriteUtils favoriteUtils : favoriteExtracted.getFavoriteUtilsList()) {
-            if(favoriteUtils.getId().equals(productId)) {
+        for (FavoriteUtils favoriteUtils : favoriteExtracted.getFavoriteUtilsList()) {
+            if (favoriteUtils.getId().equals(productId)) {
                 return new FavoriteExtractedProduct(favoriteUtils, "", 200);
             }
         }
@@ -110,7 +110,7 @@ public class FavoritesService {
 
     public SingleFavorite findById(Integer id) {
         var result = favoritesRepository.findById(id);
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return new SingleFavorite(null, "Favorite Product not found", 404);
         }
 
@@ -119,71 +119,49 @@ public class FavoritesService {
         return favorite;
     }
 
-    public FavoriteAdded addFav(Favorites favorite, Integer pathId) {
-        Integer productId = favorite.getProduct_id();
-        Integer userId = favorite.getUser_id();
-        FavoriteAdded favoriteAdded = new FavoriteAdded();
-
-        if(!favorite.getUser_id().equals(pathId)) {
-            System.out.println("Favorite product has a different user id than the path one.");
-
-            favoriteAdded.setError("Favorite product has a different user id than the path one.");
-            favoriteAdded.setStatusCode(404);
-
-            return favoriteAdded;
-        }
+    public FavoriteAdded addFav(Integer userId, Integer productId) {
 
         AllFavorites favProducts = findAll();
-        for(Favorites fav : favProducts.getFavorites()) {
-            if(fav.getProduct_id().equals(productId) && fav.getUser_id().equals(userId)) {
-                favoriteAdded.setError("Product already exists in Favorites List!");
-                favoriteAdded.setStatusCode(404);
-                return favoriteAdded;
+        for (Favorites fav : favProducts.getFavorites()) {
+            if (fav.getProduct_id().equals(productId) && fav.getUser_id().equals(userId)) {
+                return new FavoriteAdded(fav, "Product already exists in Favorites List!", 409);
             }
         }
 
-        boolean validUser = false, validProduct = false;
+        boolean validUser = false;
+        boolean validProduct = false;
+
         AllProducts products = productService.findAll();
-        for(Product p : products.getProducts()) {
-            if(p.getId().equals(productId)) {
+        for (Product p : products.getProducts()) {
+            if (p.getId().equals(productId)) {
                 validProduct = true;
                 break;
             }
         }
 
         AllUsers users = userService.findAll();
-        for(User u : users.getUsers()) {
-            if(u.getId().equals(userId)) {
+        for (User u : users.getUsers()) {
+            if (u.getId().equals(userId)) {
                 validUser = true;
                 break;
             }
         }
 
-        if(!validProduct) {
-            favoriteAdded.setError("You can't add to Favorite a product that is not in the Catalog!");
-            favoriteAdded.setStatusCode(404);
-            return favoriteAdded;
+        if (!validProduct) {
+            return new FavoriteAdded(new Favorites(),"You can't add to Favorite a product that is not in the Catalog!",404);
         }
 
-        if(!validUser) {
-            favoriteAdded.setError("Invalid user id for favorite product");
-            favoriteAdded.setStatusCode(404);
-            return favoriteAdded;
+        if (!validUser) {
+            return new FavoriteAdded(new Favorites(),"Invalid user id for favorite product",404);
         }
+
+        Favorites favorite = new Favorites();
+        favorite.setUser_id(userId);
+        favorite.setProduct_id(productId);
 
         var result = favoritesRepository.save(favorite);
 
-        if(result == null) {
-            favoriteAdded.setError("A aparut o eroare in cadrul adaugarii produsului la favorite!");
-            favoriteAdded.setStatusCode(500);
-            return favoriteAdded;
-        }
-
-        favoriteAdded.setFavorite(result);
-        favoriteAdded.setError("");
-        favoriteAdded.setStatusCode(201);
-
-        return favoriteAdded;
+        return new FavoriteAdded(result,"",200);
     }
 
     public void deleteById(Integer favoriteId) {

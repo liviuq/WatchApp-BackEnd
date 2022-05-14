@@ -37,9 +37,9 @@ public class FavoritesController {
         return favoritesService.findFavoriteExtractProduct(userId, productId);
     }
 
-    @PostMapping("insert/{userId}")
-    public FavoriteAdded add(@Valid @RequestBody Favorites favorite, @PathVariable Integer userId) {
-        FavoriteAdded result = favoritesService.addFav(favorite, userId);
+    @PostMapping("{userId}/insert/{productId}")
+    public FavoriteAdded add(@PathVariable Integer userId, @PathVariable Integer productId) {
+        FavoriteAdded result = favoritesService.addFav(userId, productId);
         return result;
     }
 
