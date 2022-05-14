@@ -13,7 +13,7 @@ public class CartUtils {
     private Integer id;
     private String name;
     private Float price;
-    private String buyer;
+    private String seller;
 
 
     @Override
@@ -21,11 +21,11 @@ public class CartUtils {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartUtils cartUtils = (CartUtils) o;
-        return Objects.equals(id, cartUtils.id) && Objects.equals(name, cartUtils.name) && Objects.equals(price, cartUtils.price) && Objects.equals(buyer, cartUtils.buyer);
+        return Objects.equals(id, cartUtils.id) && Objects.equals(name, cartUtils.name) && Objects.equals(price, cartUtils.price) && Objects.equals(seller, cartUtils.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, buyer);
+        return Objects.hash(id, name, price, seller);
     }
 }

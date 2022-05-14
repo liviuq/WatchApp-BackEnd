@@ -197,13 +197,13 @@ public class CartService {
 
         for(Cart cart : allCart.getCart()){
             SingleProduct singleProduct = productService.findById(cart.getProduct_id());
-            SingleUser singleUser = userService.findById(buyerId);
+            SingleUser singleUser = userService.findById(cart.getSeller_id());
             CartUtils cartUtils = new CartUtils();
 
             cartUtils.setId(cart.getId());
             cartUtils.setName(singleProduct.getProduct().getName());
             cartUtils.setPrice(singleProduct.getProduct().getPrice());
-            cartUtils.setBuyer(singleUser.getUser().getUser_name());
+            cartUtils.setSeller(singleUser.getUser().getUser_name());
 
             cartUtilsList.add(cartUtils);
 
