@@ -186,8 +186,6 @@ public class FavoritesService {
         return favoriteAdded;
     }
 
-
-
     public void deleteById(Integer favoriteId) {
         favoritesRepository.deleteById(favoriteId);
     }

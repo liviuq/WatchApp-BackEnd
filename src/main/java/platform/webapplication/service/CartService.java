@@ -115,7 +115,6 @@ public class CartService {
         }
 
         if(!validUser) {
-
             return new CartAdded(new Cart(),"Invalid user id for cart product",404);
         }
 
@@ -164,17 +163,24 @@ public class CartService {
         return cartRepository.count();
     }
 
-    public CartDeleted deleteById(Integer buyer_id, Integer cartId) {
-        SingleCart currentCart = this.findById(cartId);
-        if(currentCart.getCart().getBuyer_id().equals(buyer_id))
+    public CartDeleted deleteById(Integer buyer_id, Integer id) {
+        //extracting buyer_id's cart
+        AllCart buyerIdCart = findUserCart(buyer_id);
+
+        //iterate through buyerIdCart to find a matching id
+        for(Cart cart : buyerIdCart.getCart())
         {
-            cartRepository.deleteById(cartId);
-            return new CartDeleted(cartId, "", 200);
+            //we found the id needed to be deleted
+            if(cart.getId().equals(id))
+            {
+                //delete buyer_id's product from cart
+                cartRepository.deleteById(id);
+                return new CartDeleted(cart.getId(), "", 200);
+            }
         }
-        else
-        {
-            return new CartDeleted(cartId, "Product does not belong to user", 200);
-        }
+
+        //id does not belong to buyer_id
+        return new CartDeleted(buyerIdCart.getCart().get(0).getId(), "Product does not belong to user's cart", 200);
     }
 
     public AllCart findUserCart(Integer buyerId) {
