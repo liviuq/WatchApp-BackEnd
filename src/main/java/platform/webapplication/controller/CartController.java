@@ -46,6 +46,12 @@ public class CartController {
         return result;
     }
 
+    @PostMapping("{buyer_id}/insert/{product_id}")
+    public CartAdded addCart(@PathVariable Integer buyer_id, @PathVariable Integer product_id){
+        CartAdded result = cartService.saveProductToCart(buyer_id, product_id);
+        return result;
+    }
+
     @GetMapping("{buyer_id}")
     public CartTotalPrice listExtractedCart(@PathVariable Integer buyer_id){
         return cartService.findCartExtracted(buyer_id);

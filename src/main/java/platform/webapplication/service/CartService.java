@@ -41,14 +41,14 @@ public class CartService {
         Integer productId = cart.getProduct_id();
         Integer buyerId = cart.getBuyer_id();
         if(!cart.getBuyer_id().equals(pathId)) {
-            System.out.println("Favorite product has a different user id than the path one.");
-            return new CartAdded(new Cart(),"Favorite product has a different user id than the path one.",404);
+            System.out.println("Cart product has a different user id than the path one.");
+            return new CartAdded(new Cart(),"Cart product has a different user id than the path one.",404);
         }
 
         AllCart cartProducts = findAll();
         for(Cart c : cartProducts.getCart()) {
             if(c.getProduct_id().equals(productId) && c.getBuyer_id().equals(buyerId)) {
-                return new CartAdded(new Cart(),"Product already exists in Favorites List!",404);
+                return new CartAdded(new Cart(),"Product already exists in Cart List!",404);
             }
         }
 
@@ -71,21 +71,67 @@ public class CartService {
         }
 
         if(!validProduct) {
-            return new CartAdded(new Cart(),"You can't add to Favorite a product that is not in the Catalog!",404);
+            return new CartAdded(new Cart(),"You can't add to Cart a product that is not in the Catalog!",404);
         }
 
         if(!validUser) {
 
-            return new CartAdded(new Cart(),"Invalid user id for favorite product",404);
+            return new CartAdded(new Cart(),"Invalid user id for cart product",404);
         }
 
         var result = cartRepository.save(cart);
 
         if(result == null) {
-            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului la favorite!",500);
+            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului in cos!",500);
         }
 
         return new CartAdded(result,"",201);
+    }
+
+    public CartAdded saveProductToCart(Integer buyerId, Integer productId){
+        boolean validUser = false;
+        boolean validProduct = false;
+        Integer sellerId = 0;
+
+        AllProducts products = productService.findAll();
+        for(Product p : products.getProducts()) {
+            if(p.getId().equals(productId)) {
+                validProduct = true;
+                sellerId = p.getUser_id();
+                break;
+            }
+        }
+
+        if(!validProduct) {
+            return new CartAdded(new Cart(),"You can't add to Cart a product that is not in the Catalog!",404);
+        }
+
+        AllUsers users = userService.findAll();
+        for(User u : users.getUsers()) {
+            if(u.getId().equals(buyerId)) {
+                validUser = true;
+                break;
+            }
+        }
+
+        if(!validUser) {
+
+            return new CartAdded(new Cart(),"Invalid user id for cart product",404);
+        }
+
+        Cart cart = new Cart();
+        cart.setProduct_id(productId);
+        cart.setBuyer_id(buyerId);
+        cart.setSeller_id(sellerId);
+
+        var result = cartRepository.save(cart);
+
+        if(result == null) {
+            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului in cos!",500);
+        }
+
+        return new CartAdded(result,"",201);
+
     }
 
     public SingleCart findById(Integer id)
