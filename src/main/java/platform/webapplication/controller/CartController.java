@@ -37,12 +37,15 @@ public class CartController {
 //        return cartService.findByIdFromUser(buyer_id, id);
 //    }
 
-//    @GetMapping("{buyer_id}")
-//    public AllCart listCart(@PathVariable Integer buyer_id){ return cartService.findUserCart(buyer_id); }
-
     @PostMapping("{buyer_id}/insert")
     public CartAdded add(@Valid @RequestBody Cart cart, @PathVariable Integer buyer_id){
         CartAdded result = cartService.saveToCart(cart, buyer_id);
+        return result;
+    }
+
+    @PostMapping("{buyer_id}/insert/{product_id}")
+    public CartAdded addCart(@PathVariable Integer buyer_id, @PathVariable Integer product_id){
+        CartAdded result = cartService.saveProductToCart(buyer_id, product_id);
         return result;
     }
 

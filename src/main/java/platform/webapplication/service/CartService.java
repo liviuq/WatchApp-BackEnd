@@ -41,14 +41,14 @@ public class CartService {
         Integer productId = cart.getProduct_id();
         Integer buyerId = cart.getBuyer_id();
         if(!cart.getBuyer_id().equals(pathId)) {
-            System.out.println("Favorite product has a different user id than the path one.");
-            return new CartAdded(new Cart(),"Favorite product has a different user id than the path one.",404);
+            System.out.println("Cart product has a different user id than the path one.");
+            return new CartAdded(new Cart(),"Cart product has a different user id than the path one.",404);
         }
 
         AllCart cartProducts = findAll();
         for(Cart c : cartProducts.getCart()) {
             if(c.getProduct_id().equals(productId) && c.getBuyer_id().equals(buyerId)) {
-                return new CartAdded(new Cart(),"Product already exists in Favorites List!",404);
+                return new CartAdded(new Cart(),"Product already exists in Cart List!",404);
             }
         }
 
@@ -71,21 +71,66 @@ public class CartService {
         }
 
         if(!validProduct) {
-            return new CartAdded(new Cart(),"You can't add to Favorite a product that is not in the Catalog!",404);
+            return new CartAdded(new Cart(),"You can't add to Cart a product that is not in the Catalog!",404);
         }
 
         if(!validUser) {
 
-            return new CartAdded(new Cart(),"Invalid user id for favorite product",404);
+            return new CartAdded(new Cart(),"Invalid user id for cart product",404);
         }
 
         var result = cartRepository.save(cart);
 
         if(result == null) {
-            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului la favorite!",500);
+            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului in cos!",500);
         }
 
         return new CartAdded(result,"",201);
+    }
+
+    public CartAdded saveProductToCart(Integer buyerId, Integer productId){
+        boolean validUser = false;
+        boolean validProduct = false;
+        Integer sellerId = 0;
+
+        AllProducts products = productService.findAll();
+        for(Product p : products.getProducts()) {
+            if(p.getId().equals(productId)) {
+                validProduct = true;
+                sellerId = p.getUser_id();
+                break;
+            }
+        }
+
+        if(!validProduct) {
+            return new CartAdded(new Cart(),"You can't add to Cart a product that is not in the Catalog!",404);
+        }
+
+        AllUsers users = userService.findAll();
+        for(User u : users.getUsers()) {
+            if(u.getId().equals(buyerId)) {
+                validUser = true;
+                break;
+            }
+        }
+
+        if(!validUser) {
+            return new CartAdded(new Cart(),"Invalid user id for cart product",404);
+        }
+
+        Cart cart = new Cart();
+        cart.setProduct_id(productId);
+        cart.setBuyer_id(buyerId);
+        cart.setSeller_id(sellerId);
+
+        var result = cartRepository.save(cart);
+
+        if(result == null) {
+            return new CartAdded(new Cart(),"A aparut o eroare in cadrul adaugarii produsului in cos!",500);
+        }
+
+        return new CartAdded(result,"",201);
+
     }
 
     public SingleCart findById(Integer id)
@@ -118,17 +163,24 @@ public class CartService {
         return cartRepository.count();
     }
 
-    public CartDeleted deleteById(Integer buyer_id, Integer cartId) {
-        SingleCart currentCart = this.findById(cartId);
-        if(currentCart.getCart().getBuyer_id().equals(buyer_id))
+    public CartDeleted deleteById(Integer buyer_id, Integer id) {
+        //extracting buyer_id's cart
+        AllCart buyerIdCart = findUserCart(buyer_id);
+
+        //iterate through buyerIdCart to find a matching id
+        for(Cart cart : buyerIdCart.getCart())
         {
-            cartRepository.deleteById(cartId);
-            return new CartDeleted(cartId, "", 200);
+            //we found the id needed to be deleted
+            if(cart.getId().equals(id))
+            {
+                //delete buyer_id's product from cart
+                cartRepository.deleteById(id);
+                return new CartDeleted(cart.getId(), "", 200);
+            }
         }
-        else
-        {
-            return new CartDeleted(cartId, "Product does not belong to user", 200);
-        }
+
+        //id does not belong to buyer_id
+        return new CartDeleted(buyerIdCart.getCart().get(0).getId(), "Product does not belong to user's cart", 200);
     }
 
     public AllCart findUserCart(Integer buyerId) {
@@ -151,13 +203,13 @@ public class CartService {
 
         for(Cart cart : allCart.getCart()){
             SingleProduct singleProduct = productService.findById(cart.getProduct_id());
-            SingleUser singleUser = userService.findById(buyerId);
+            SingleUser singleUser = userService.findById(cart.getSeller_id());
             CartUtils cartUtils = new CartUtils();
 
             cartUtils.setId(cart.getId());
             cartUtils.setName(singleProduct.getProduct().getName());
             cartUtils.setPrice(singleProduct.getProduct().getPrice());
-            cartUtils.setBuyer(singleUser.getUser().getUser_name());
+            cartUtils.setSeller(singleUser.getUser().getUser_name());
 
             cartUtilsList.add(cartUtils);
 
