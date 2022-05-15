@@ -11,6 +11,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class CartUtils {
     private Integer id;
+    private Integer product_id;
     private String name;
     private Float price;
     private String seller;
