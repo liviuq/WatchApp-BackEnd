@@ -44,7 +44,7 @@ public class Product {
     private Integer rating;
     @NotNull(message = "Gender should not be null!")
     private Byte gender;
-    private Byte promovated;
+    private Byte promovat;
     private String category;
 //    @NotNull(message = "Brand should not be null!")
 //    private String brand;
