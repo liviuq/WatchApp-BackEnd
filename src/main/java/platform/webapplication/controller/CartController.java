@@ -12,7 +12,7 @@ import platform.webapplication.service.ProductService;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path="/cart")
 public class CartController {
