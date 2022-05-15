@@ -210,7 +210,7 @@ public class CartService {
 
             cartUtils.setId(cart.getId());
             cartUtils.setProduct_id(singleProduct.getProduct().getId());
-            cartUtils.setName(singleProduct.getProduct().getName());
+            cartUtils.setBrand(singleProduct.getProduct().getBrand());
             cartUtils.setPrice(singleProduct.getProduct().getPrice());
             cartUtils.setSeller(singleUser.getUser().getUser_name());
 

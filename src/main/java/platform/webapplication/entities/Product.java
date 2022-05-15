@@ -20,8 +20,8 @@ public class Product {
     private Integer id;
     @NotNull(message = "User id should not be null!")
     private Integer user_id;
-    @NotNull(message = "Name should not be null!")
-    private String name;
+    @NotNull(message = "Brand should not be null!")
+    private String brand;
     @NotNull(message = "Price should not be null!")
     private Float price;
     private Date date;
@@ -43,13 +43,15 @@ public class Product {
     private String mechanism;
     private Integer rating;
     @NotNull(message = "Gender should not be null!")
-    private Byte gender;
+    private Byte gen;
     private Byte promovat;
     private String category;
 //    @NotNull(message = "Brand should not be null!")
 //    private String brand;
     @NotNull(message = "Model should not be null!")
     private String model;
+    @NotNull(message = "Name should not be null!")
+    private String name;
 
     @Override
     public boolean equals(Object o) {
