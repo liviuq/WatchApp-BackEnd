@@ -2,7 +2,9 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.entities.*;
+import platform.webapplication.entities.Cart;
+import platform.webapplication.entities.Product;
+import platform.webapplication.entities.User;
 import platform.webapplication.models.Cart.*;
 import platform.webapplication.models.Products.AllProducts;
 import platform.webapplication.models.Products.SingleProduct;
@@ -16,7 +18,7 @@ import java.util.List;
 @Service
 public class CartService {
 
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
     private final ProductService productService;
     private final UserService userService;
 
@@ -207,6 +209,7 @@ public class CartService {
             CartUtils cartUtils = new CartUtils();
 
             cartUtils.setId(cart.getId());
+            cartUtils.setProduct_id(singleProduct.getProduct().getId());
             cartUtils.setName(singleProduct.getProduct().getName());
             cartUtils.setPrice(singleProduct.getProduct().getPrice());
             cartUtils.setSeller(singleUser.getUser().getUser_name());
