@@ -20,8 +20,8 @@ public class Product {
     private Integer id;
     @NotNull(message = "User id should not be null!")
     private Integer user_id;
-//    @NotNull(message = "Name should not be null!")
-//    private String name;
+    @NotNull(message = "Name should not be null!")
+    private String name;
     @NotNull(message = "Price should not be null!")
     private Float price;
     private Date date;
