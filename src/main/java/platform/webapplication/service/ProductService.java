@@ -163,4 +163,14 @@ public class ProductService {
     public boolean checkUserExists(Integer id) {
         return userRepository.findById(id).isPresent();
     }
+
+
+    public List<Product> listFilteredProducts(String filter) {
+        if (filter != null) {
+            return productRepository.search(filter);
+        }
+        return productRepository.findAll();
+    }
+    //page aici + favorites etc (paginare), raspunsuri paginate
+
 }

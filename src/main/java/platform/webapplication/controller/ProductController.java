@@ -1,6 +1,8 @@
 package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Product;
 import platform.webapplication.models.Products.*;
@@ -97,5 +99,12 @@ public class ProductController {
         }
 
         return new AllProducts(new ArrayList<>(), "User has no products", 200);
+    }
+
+    @GetMapping("filter")
+    public List<Product> filteredProducts(@Param("filter") String filter) {
+        List<Product> productList = productService.listFilteredProducts(filter);
+
+        return productList;
     }
 }
