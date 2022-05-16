@@ -2,9 +2,7 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import platform.webapplication.entities.Cart;
-import platform.webapplication.entities.Product;
-import platform.webapplication.entities.User;
+import platform.webapplication.entities.*;
 import platform.webapplication.models.Cart.*;
 import platform.webapplication.models.Products.AllProducts;
 import platform.webapplication.models.Products.SingleProduct;

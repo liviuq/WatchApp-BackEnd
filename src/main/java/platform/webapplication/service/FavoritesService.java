@@ -14,7 +14,6 @@ import platform.webapplication.models.Users.SingleUser;
 import platform.webapplication.repository.FavoritesRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service

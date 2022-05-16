@@ -4,13 +4,10 @@ package platform.webapplication.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Cart;
-import platform.webapplication.entities.Product;
 import platform.webapplication.models.Cart.*;
 import platform.webapplication.service.CartService;
-import platform.webapplication.service.ProductService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

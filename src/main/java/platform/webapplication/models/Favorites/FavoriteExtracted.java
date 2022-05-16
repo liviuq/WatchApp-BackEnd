@@ -1,7 +1,6 @@
 package platform.webapplication.models.Favorites;
 
 import lombok.*;
-import platform.webapplication.entities.Favorites;
 
 import java.util.ArrayList;
 import java.util.List;

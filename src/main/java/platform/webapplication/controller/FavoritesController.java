@@ -1,7 +1,6 @@
 package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Favorites;
 import platform.webapplication.models.Favorites.*;

@@ -101,10 +101,8 @@ public class ProductController {
         return new AllProducts(new ArrayList<>(), "User has no products", 200);
     }
 
-    @GetMapping("filter")
-    public List<Product> filteredProducts(@Param("filter") String filter) {
-        List<Product> productList = productService.listFilteredProducts(filter);
-
-        return productList;
+    @GetMapping("filters")
+    public ProductFilters GetFilters(){
+        return productService.getFilters();
     }
 }
