@@ -14,6 +14,7 @@ import platform.webapplication.repository.ProductRepository;
 import platform.webapplication.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -296,4 +297,19 @@ public class ProductService {
 
         return productFilters;
     }
+
+    // page aici + favorites etc (paginare), raspunsuri paginate
+    // import org.springframework.data.domain.Page;
+    public HashSet<Product> listSearchedProducts(String brand, String price, String category, String year) {
+        HashSet<Product> products = new HashSet<>();
+
+        if (brand != null || category != null || price != null || year != null) {
+            products.addAll(productRepository.search(brand, price, category, year));
+
+            return products;
+        }
+        products.addAll(productRepository.findAll());
+        return products;
+    }
+
 }
