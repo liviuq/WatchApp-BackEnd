@@ -2,13 +2,13 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import platform.webapplication.models.Favorites.AllFavorites;
-import platform.webapplication.models.Favorites.FavoriteAdded;
-import platform.webapplication.models.Favorites.FavoriteExtracted;
-import platform.webapplication.models.Favorites.FavoriteExtractedProduct;
+import platform.webapplication.entities.Favorites;
+import platform.webapplication.models.Favorites.*;
 import platform.webapplication.service.FavoritesService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import javax.validation.Valid;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path="/favorites")
 public class FavoritesController {
@@ -39,8 +39,8 @@ public class FavoritesController {
         return result;
     }
 
-    @DeleteMapping("delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        favoritesService.deleteById(id);
+    @DeleteMapping("{userId}/delete/{id}")
+    public FavoriteDeleted delete(@PathVariable Integer userId, @PathVariable Integer id) {
+        return favoritesService.deleteById(userId, id);
     }
 }

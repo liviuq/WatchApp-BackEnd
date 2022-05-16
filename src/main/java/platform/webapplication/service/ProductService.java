@@ -214,7 +214,7 @@ public class ProductService {
     public boolean checkUserExists(Integer id) {
         return userRepository.findById(id).isPresent();
     }
-
+  
     public ProductFilters getFilters() {
         ProductFilters productFilters = new ProductFilters();
         var brands = brandRepository.findAll();

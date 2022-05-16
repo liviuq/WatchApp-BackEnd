@@ -1,6 +1,8 @@
 package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Product;
 import platform.webapplication.models.Products.*;
@@ -10,7 +12,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path="/product")
 public class ProductController {
