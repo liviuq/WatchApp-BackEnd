@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import platform.webapplication.entities.Favorites;
 import platform.webapplication.entities.Product;
 import platform.webapplication.entities.User;
+import platform.webapplication.models.Cart.CartDeleted;
 import platform.webapplication.models.Favorites.*;
 import platform.webapplication.models.Products.AllProducts;
 import platform.webapplication.models.Products.SingleProduct;
@@ -166,8 +167,17 @@ public class FavoritesService {
         return new FavoriteAdded(result,"",200);
     }
 
-    public void deleteById(Integer favoriteId) {
-        favoritesRepository.deleteById(favoriteId);
+    public FavoriteDeleted deleteById(Integer userId, Integer favoriteId) {
+        AllFavorites allFavorites = findAllUserId(userId);
+        for(Favorites fav : allFavorites.getFavorites()) {
+            if(fav.getId().equals(favoriteId)) {
+                favoritesRepository.deleteById(favoriteId);
+
+                return new FavoriteDeleted(fav.getId(), "", 200);
+            }
+        }
+
+        return new FavoriteDeleted(allFavorites.getFavorites().get(0).getId(), "Product does not belong to user's favorite list", 200);
     }
 
     public Long count() {
