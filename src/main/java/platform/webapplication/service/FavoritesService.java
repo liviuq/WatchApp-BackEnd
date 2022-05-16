@@ -63,6 +63,7 @@ public class FavoritesService {
 
         var it = favoritesRepository.findAll();
 
+
         List<Favorites> favorites = new ArrayList<>();
 
         for (Favorites fav : it) {
@@ -84,6 +85,7 @@ public class FavoritesService {
             FavoriteUtils favoriteUtils = new FavoriteUtils();
 
             favoriteUtils.setId(fav.getId());
+            favoriteUtils.setProduct_id(singleProduct.getProduct().getId());
             favoriteUtils.setBrand(singleProduct.getProduct().getBrand());
             favoriteUtils.setPrice(singleProduct.getProduct().getPrice());
             favoriteUtils.setSeller(singleUser.getUser().getUser_name());
