@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Carcase {
+public class Carcases {
     @Id
     private Integer id;
     private String carcase;

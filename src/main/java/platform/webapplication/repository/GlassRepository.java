@@ -1,8 +1,7 @@
 package platform.webapplication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import platform.webapplication.entities.Brand;
-import platform.webapplication.entities.Glass;
+import platform.webapplication.entities.Glasses;
 
-public interface GlassRepository extends JpaRepository<Glass, Integer> {
+public interface GlassRepository extends JpaRepository<Glasses, Integer> {
 }

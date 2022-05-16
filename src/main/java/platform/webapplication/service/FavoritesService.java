@@ -83,7 +83,7 @@ public class FavoritesService {
             FavoriteUtils favoriteUtils = new FavoriteUtils();
 
             favoriteUtils.setId(fav.getId());
-            favoriteUtils.setName(singleProduct.getProduct().getName());
+            favoriteUtils.setBrand(singleProduct.getProduct().getBrand());
             favoriteUtils.setPrice(singleProduct.getProduct().getPrice());
             favoriteUtils.setSeller(singleUser.getUser().getUser_name());
 

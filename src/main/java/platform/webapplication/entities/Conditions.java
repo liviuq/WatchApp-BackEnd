@@ -1,6 +1,5 @@
 package platform.webapplication.entities;
 
-
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -12,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CarcaseForm {
+public class Conditions {
     @Id
-    private Integer id;
-    private String carcase_form;
+    private Integer Id;
+    private String conditions;
 }

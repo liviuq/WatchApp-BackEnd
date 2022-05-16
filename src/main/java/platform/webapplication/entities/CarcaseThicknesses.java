@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class WaterResistence {
+public class CarcaseThicknesses {
     @Id
     private Integer id;
-    private Integer water_resistece;
+    private String carcase_thickness;
 }

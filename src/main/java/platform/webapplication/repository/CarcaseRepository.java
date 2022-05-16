@@ -1,8 +1,7 @@
 package platform.webapplication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import platform.webapplication.entities.Brand;
-import platform.webapplication.entities.Carcase;
+import platform.webapplication.entities.Carcases;
 
-public interface CarcaseRepository extends JpaRepository<Carcase, Integer> {
+public interface CarcaseRepository extends JpaRepository<Carcases, Integer> {
 }

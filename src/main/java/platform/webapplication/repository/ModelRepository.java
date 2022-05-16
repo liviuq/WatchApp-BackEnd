@@ -1,8 +1,7 @@
 package platform.webapplication.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import platform.webapplication.entities.Brand;
-import platform.webapplication.entities.Model;
+import platform.webapplication.entities.Models;
 
-public interface ModelRepository extends JpaRepository<Model, Integer> {
+public interface ModelRepository extends JpaRepository<Models, Integer> {
 }

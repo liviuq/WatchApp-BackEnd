@@ -12,8 +12,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CarcaseColor {
+public class Glasses {
     @Id
     private Integer id;
-    private String carcase_color;
+    private String glass;
 }

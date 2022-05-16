@@ -98,4 +98,9 @@ public class ProductController {
 
         return new AllProducts(new ArrayList<>(), "User has no products", 200);
     }
+
+    @GetMapping("filters")
+    public ProductFilters GetFilters(){
+        return productService.getFilters();
+    }
 }

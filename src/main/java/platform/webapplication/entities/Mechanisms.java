@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CarcaseThickness {
+public class Mechanisms {
     @Id
     private Integer id;
-    private String carcase_thickness;
+    private String mechanism;
 }

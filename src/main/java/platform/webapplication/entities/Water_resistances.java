@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Mechanism {
+public class Water_resistances {
     @Id
     private Integer id;
-    private String mechanism;
+    private String water_resistance;
 }

@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Years {
     @Id
     private Integer id;
-    private String category;
+    private Integer year;
 }

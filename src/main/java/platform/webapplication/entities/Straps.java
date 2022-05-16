@@ -11,8 +11,8 @@ import javax.persistence.Id;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class StrapColor {
+public class Straps {
     @Id
     private Integer id;
-    private String strap_color;
+    private String strap;
 }
