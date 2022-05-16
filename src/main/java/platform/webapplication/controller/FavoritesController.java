@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import platform.webapplication.entities.Favorites;
-import platform.webapplication.models.Favorites.AllFavorites;
-import platform.webapplication.models.Favorites.FavoriteAdded;
-import platform.webapplication.models.Favorites.FavoriteExtracted;
-import platform.webapplication.models.Favorites.FavoriteExtractedProduct;
+import platform.webapplication.models.Favorites.*;
 import platform.webapplication.service.FavoritesService;
 
 import javax.validation.Valid;
@@ -43,8 +40,8 @@ public class FavoritesController {
         return result;
     }
 
-    @DeleteMapping("delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        favoritesService.deleteById(id);
+    @DeleteMapping("{userId}/delete/{id}")
+    public FavoriteDeleted delete(@PathVariable Integer userId, @PathVariable Integer id) {
+        return favoritesService.deleteById(userId, id);
     }
 }
