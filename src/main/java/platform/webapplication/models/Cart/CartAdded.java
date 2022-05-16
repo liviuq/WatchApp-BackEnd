@@ -2,8 +2,6 @@ package platform.webapplication.models.Cart;
 
 import lombok.*;
 import platform.webapplication.entities.Cart;
-import platform.webapplication.entities.Cart;
-import platform.webapplication.models.Cart.CartAdded;
 
 import java.util.Objects;
 

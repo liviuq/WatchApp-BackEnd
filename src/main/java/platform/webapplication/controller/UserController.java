@@ -8,8 +8,6 @@ import platform.webapplication.models.Users.UserUpdated;
 import platform.webapplication.entities.User;
 import platform.webapplication.service.UserService;
 
-import java.util.List;
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path="/user")

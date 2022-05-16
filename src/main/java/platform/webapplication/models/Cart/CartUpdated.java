@@ -19,7 +19,7 @@ public class CartUpdated {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        platform.webapplication.models.Cart.CartUpdated that = (platform.webapplication.models.Cart.CartUpdated) o;
+        CartUpdated that = (CartUpdated) o;
         return statusCode == that.statusCode && Objects.equals(cart, that.cart) && Objects.equals(error, that.error);
     }
 

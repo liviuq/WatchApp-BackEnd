@@ -2,13 +2,15 @@ package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import platform.webapplication.entities.Carcase;
+import platform.webapplication.entities.CarcaseColor;
+import platform.webapplication.entities.Category;
 import platform.webapplication.entities.Product;
 import platform.webapplication.models.Products.AllProducts;
 import platform.webapplication.models.Products.ProductAdded;
 import platform.webapplication.models.Products.ProductUpdated;
 import platform.webapplication.models.Products.SingleProduct;
-import platform.webapplication.repository.ProductRepository;
-import platform.webapplication.repository.UserRepository;
+import platform.webapplication.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +18,58 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
-    private UserRepository  userRepository;
+    private final ProductRepository productRepository;
+    private final UserRepository  userRepository;
+    private final BrandRepository brandRepository;
+    private final CarcaseRepository carcaseRepository;
+    private final CarcaseColorRepository carcaseColorRepository;
+    private final CarcaseFormRepository carcaseFormRepository;
+    private final CarcaseThicknessRepository carcaseThicknessRepository;
+    private final CategoryRepository categoryRepository;
+    private final GenderRepository genderRepository;
+    private final GlassRepository glassRepository;
+    private final MechanismRepository mechanismRepository;
+    private final ModelRepository modelRepository;
+    private final StrapRepository strapRepository;
+    private final StrapColorRepository strapColorRepository;
+    private final WaterResistanceRepository waterResistanceRepository;
+    private final YearRepository yearRepository;
 
 
     @Autowired
-    public ProductService(ProductRepository productRepository, UserRepository userRepository) {
+    public ProductService(
+            ProductRepository productRepository,
+            UserRepository userRepository,
+            BrandRepository brandRepository,
+            CarcaseRepository carcaseRepository,
+            CarcaseColorRepository carcaseColorRepository,
+            CarcaseFormRepository carcaseFormRepository,
+            CarcaseThicknessRepository carcaseThicknessRepository,
+            CategoryRepository categoryRepository,
+            GenderRepository genderRepository,
+            GlassRepository glassRepository,
+            MechanismRepository mechanismRepository,
+            ModelRepository modelRepository,
+            StrapRepository strapRepository,
+            StrapColorRepository strapColorRepository,
+            WaterResistanceRepository waterResistanceRepository,
+            YearRepository yearRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.brandRepository = brandRepository;
+        this.carcaseRepository = carcaseRepository;
+        this.carcaseColorRepository = carcaseColorRepository;
+        this.carcaseFormRepository = carcaseFormRepository;
+        this.carcaseThicknessRepository = carcaseThicknessRepository;
+        this.categoryRepository = categoryRepository;
+        this.genderRepository = genderRepository;
+        this.glassRepository = glassRepository;
+        this.mechanismRepository = mechanismRepository;
+        this.modelRepository = modelRepository;
+        this.strapRepository = strapRepository;
+        this.strapColorRepository = strapColorRepository;
+        this.waterResistanceRepository = waterResistanceRepository;
+        this.yearRepository = yearRepository;
     }
 
     public AllProducts findAll() {
@@ -163,4 +209,5 @@ public class ProductService {
     public boolean checkUserExists(Integer id) {
         return userRepository.findById(id).isPresent();
     }
+
 }
