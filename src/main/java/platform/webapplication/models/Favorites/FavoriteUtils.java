@@ -15,6 +15,7 @@ public class FavoriteUtils {
     private String brand;
     private Float price;
     private String seller;
+    private Integer product_id;
 
     @Override
     public boolean equals(Object o) {
