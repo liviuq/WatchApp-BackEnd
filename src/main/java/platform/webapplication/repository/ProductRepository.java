@@ -10,10 +10,11 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query("SELECT p FROM Product p WHERE (trim(lower(p.brand)) = :brand OR :brand = '')"
-            + " AND (CONCAT(p.price, '') =  CONCAT(:price, '') OR CONCAT(:price, '') = '')"
-            + " AND (trim(lower(p.category)) =  :category OR :category = '')"
-            + " AND (CONCAT(p.year, '') =  CONCAT(:price, '') OR CONCAT(:year, '') = '')")
+    @Query("SELECT p FROM Product p WHERE (trim(lower(p.brand)) = :brand OR :brand = '' OR :brand is null)"
+            + " AND (trim(lower(p.category)) = :category OR :category = '' OR :category is null)"
+            + " AND (trim(lower(p.strap)) = :strap OR :strap = '' OR :strap is null)"
+            + " AND (trim(lower(p.strap_color)) = :color OR :color = '' OR :color is null)"
+            + " AND (CONCAT(p.year, '') =  CONCAT(:year, '') OR CONCAT(:year, '') = '' OR CONCAT(:year, '') is null)")
 
-    List<Product> search(@Param("brand") String brand, @Param("price") String price, @Param("category") String category, @Param("year") String year);
+    List<Product> search(@Param("brand") String brand, @Param("category") String category, @Param("year") String year, @Param("strap") String strap, @Param("color") String strapColor);
 }

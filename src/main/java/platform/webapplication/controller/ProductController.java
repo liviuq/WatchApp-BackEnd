@@ -109,8 +109,8 @@ public class ProductController {
 
     // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
     @GetMapping("search")
-    public HashSet<Product> searchedProducts(@Param("brand") String brand, @Param("price") String price, @Param("category") String category, @Param("year") String year) {
-        HashSet<Product> productList = productService.listSearchedProducts(brand, price, category, year);
+    public HashSet<Product> searchedProducts(@RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
+        HashSet<Product> productList = productService.listSearchedProducts(brand, category, year, strap, color);
 
         return productList;
     }

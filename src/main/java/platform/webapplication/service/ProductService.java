@@ -300,11 +300,11 @@ public class ProductService {
 
     // page aici + favorites etc (paginare), raspunsuri paginate
     // import org.springframework.data.domain.Page;
-    public HashSet<Product> listSearchedProducts(String brand, String price, String category, String year) {
+    public HashSet<Product> listSearchedProducts(String brand, String category, String year, String strap, String strapColor) {
         HashSet<Product> products = new HashSet<>();
 
-        if (brand != null || category != null || price != null || year != null) {
-            products.addAll(productRepository.search(brand, price, category, year));
+        if (brand != null || category != null || year != null || strap != null || strapColor != null) {
+            products.addAll(productRepository.search(brand, category, year, strap, strapColor));
 
             return products;
         }
