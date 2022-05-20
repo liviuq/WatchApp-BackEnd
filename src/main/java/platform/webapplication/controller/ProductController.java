@@ -10,6 +10,7 @@ import platform.webapplication.service.ProductService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -104,5 +105,13 @@ public class ProductController {
     @GetMapping("filters")
     public ProductFilters GetFilters(){
         return productService.getFilters();
+    }
+
+    // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
+    @GetMapping("search")
+    public HashSet<Product> searchedProducts(@RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
+        HashSet<Product> productList = productService.listSearchedProducts(brand, category, year, strap, color);
+
+        return productList;
     }
 }
