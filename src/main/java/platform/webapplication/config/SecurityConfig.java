@@ -49,9 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("https://watchappa3.herokuapp.com", "http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("https://watchappa3.herokuapp.com/**", "http://localhost:4200/**"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "PUT"));
-        configuration.setAllowedHeaders(Arrays.asList("https://watchappa3.herokuapp.com", "http://localhost:4200"));
+        configuration.setAllowedHeaders(Arrays.asList("https://watchappa3.herokuapp.com/**", "http://localhost:4200/**"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
