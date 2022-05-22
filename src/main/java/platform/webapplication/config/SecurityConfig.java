@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         // by default uses a Bean by the name of corsConfigurationSource
-        http.cors();
+        // http.cors();
         http.authorizeRequests()
                 // require authentication on all paths except the home page
                 .mvcMatchers("/", "/user", "/product","/product/*").permitAll()
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .addLogoutHandler(logoutController);
     }
-
+    /*
     @Bean
     CorsConfigurationSource corsConfigurationSource () {
 
@@ -58,4 +58,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+     */
 }
