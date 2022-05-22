@@ -43,4 +43,11 @@ public class UserController {
         UserUpdated result = userService.update(id, user);
         return result;
     }
+
+    @PutMapping("{id}/phone")
+    public UserUpdated updatedPhoneNumber(@PathVariable Integer id, @RequestBody User user) {
+        UserUpdated result = userService.updatePhone(id, user);
+
+        return result;
+    }
 }

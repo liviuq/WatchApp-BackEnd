@@ -59,7 +59,7 @@ public class UserService {
         Optional<User> result = userRepository.findById(id);
 
         if (result.isEmpty()) {
-            userUpdated.setError("Product not found");
+            userUpdated.setError("User not found");
             userUpdated.setStatusCode(404);
 
             return userUpdated;
@@ -68,6 +68,27 @@ public class UserService {
             Integer identifier = entity.getId();
             entity = user;
             entity.setId(identifier);
+
+            userUpdated.setUser(userRepository.save(entity));
+            userUpdated.setStatusCode(202);
+
+            return userUpdated;
+        }
+    }
+
+    public UserUpdated updatePhone(Integer id, User user) {
+        var result = userRepository.findById(id);
+        UserUpdated userUpdated = new UserUpdated();
+
+        if (result.isEmpty()) {
+            userUpdated.setError("User not found");
+            userUpdated.setStatusCode(404);
+
+            return userUpdated;
+        }
+        else {
+            User entity = result.get();
+            entity.setPhone_number(user.getPhone_number());
 
             userUpdated.setUser(userRepository.save(entity));
             userUpdated.setStatusCode(202);
