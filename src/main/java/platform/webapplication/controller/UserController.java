@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public UserUpdated update(@RequestHeader Integer id, @RequestBody User user) {
+    public UserUpdated update(@PathVariable Integer id, @RequestBody User user) {
         UserUpdated result = userService.update(id, user);
         return result;
     }
@@ -49,5 +49,12 @@ public class UserController {
         UserUpdated result = userService.updatePhone(id, user);
 
         return result;
+    }
+
+    @PutMapping("{id}/update/userdata")
+    public UserUpdated updateUserData(@PathVariable Integer id, @RequestBody User user) {
+        UserUpdated result = userService.updateUserdata(id, user);
+
+        return  result;
     }
 }

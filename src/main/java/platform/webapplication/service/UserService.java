@@ -96,4 +96,28 @@ public class UserService {
             return userUpdated;
         }
     }
+
+    public UserUpdated updateUserdata(Integer id, User user) {
+        var result = userRepository.findById(id);
+        UserUpdated userUpdated = new UserUpdated();
+
+        if (result.isEmpty()) {
+            userUpdated.setError("User not found");
+            userUpdated.setStatusCode(404);
+
+            return userUpdated;
+        }
+        else {
+            User entity = result.get();
+            entity.setCity(user.getCity());
+            entity.setCounty(user.getCounty());
+            entity.setAddress(user.getAddress());
+            entity.setPostal_code(user.getPostal_code());
+
+            userUpdated.setUser(userRepository.save(entity));
+            userUpdated.setStatusCode(202);
+
+            return userUpdated;
+        }
+    }
 }
