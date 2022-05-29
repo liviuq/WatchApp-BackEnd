@@ -107,7 +107,25 @@ public class ProductController {
         return productService.getFilters();
     }
 
+
+
     // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
+    //aici ar trebui sa adaugam si numarul paginii pe care o dorim
+    //ceva de genul "search/{pageNumber}" http://localhost:5000/product/search?brand=&category=clasic&price=59.99/2
+//    Pageable paging = PageRequest.of(pageNo, pageSize);
+//
+//    Page<Product> pagedResult = productService.findAll(paging);
+//
+//        if(pagedResult.hasContent())
+//        {
+//          return pagedResult.getContent();
+//        }
+//        else
+//        {
+//          return *error message*
+//        }
+//pentru a extrage nr total de pagini, folosim getTotalPages() ca sa avem
+//la sfarsitul paginii web acel buton prin care mergem la pagina urmatoare *pag 1 din 5*
     @GetMapping("search")
     public HashSet<Product> searchedProducts(@RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
         HashSet<Product> productList = productService.listSearchedProducts(brand, category, year, strap, color);

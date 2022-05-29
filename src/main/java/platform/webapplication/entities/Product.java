@@ -18,7 +18,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "User id should not be null!")
     private Integer user_id;
     @NotNull(message = "Brand should not be null!")
     private String brand;
@@ -48,6 +47,8 @@ public class Product {
     private String category;
     @NotNull(message = "Model should not be null!")
     private String model;
+    @NotNull(message = "Condition should not be null!")
+    private String conditions;
 
     @Override
     public boolean equals(Object o) {

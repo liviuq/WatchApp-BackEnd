@@ -12,6 +12,7 @@ import platform.webapplication.repository.*;
 import platform.webapplication.models.Products.*;
 import platform.webapplication.repository.ProductRepository;
 import platform.webapplication.repository.UserRepository;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -166,6 +167,17 @@ public class ProductService {
 
             return productUpdated;
         }
+    }
+
+    public AllProducts findAllPromoted() {
+        List<Product> products = new ArrayList<>();
+        for(Product p : findAll().getProducts()) {
+            if(p.getPromoted() != 0) {
+                products.add(p);
+            }
+        }
+
+        return new AllProducts(products, "", 200);
     }
 
     public ProductUpdated addPromotedProduct(Integer id) {
