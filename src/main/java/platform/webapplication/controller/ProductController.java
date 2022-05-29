@@ -1,6 +1,10 @@
 package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -107,29 +111,35 @@ public class ProductController {
         return productService.getFilters();
     }
 
-
-
     // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
-    //aici ar trebui sa adaugam si numarul paginii pe care o dorim
-    //ceva de genul "search/{pageNumber}" http://localhost:5000/product/search?brand=&category=clasic&price=59.99/2
-//    Pageable paging = PageRequest.of(pageNo, pageSize);
-//
-//    Page<Product> pagedResult = productService.findAll(paging);
-//
-//        if(pagedResult.hasContent())
-//        {
-//          return pagedResult.getContent();
-//        }
-//        else
-//        {
-//          return *error message*
-//        }
-//pentru a extrage nr total de pagini, folosim getTotalPages() ca sa avem
-//la sfarsitul paginii web acel buton prin care mergem la pagina urmatoare *pag 1 din 5*
     @GetMapping("search")
     public HashSet<Product> searchedProducts(@RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
         HashSet<Product> productList = productService.listSearchedProducts(brand, category, year, strap, color);
 
         return productList;
+    }
+
+    @GetMapping("search/{pageNo}")
+    public AllProducts searchedProductsPaged(@PathVariable Integer pageNo, @RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
+        HashSet<Product> productList = productService.listSearchedProductsPaged(pageNo, brand, category, year, strap, color);
+        List<Product> arrayListProducts = new ArrayList<>(productList);
+
+        Pageable paging = PageRequest.of(pageNo, 2);
+        Page<Product> page = new PageImpl<>(arrayListProducts, paging, arrayListProducts.size());
+        if(page.hasContent())
+        {
+            return new AllProducts(page.getContent(), "", 200);
+        }
+        else
+        {
+            return new AllProducts(new ArrayList<>(), "No products", 404);
+        }
+    }
+
+    @GetMapping("/promoted/{pageNo}")
+    public AllProducts listPromoted(@PathVariable Integer pageNo)
+    {
+        AllProducts result = productService.findAllPaginated(pageNo);
+        return result;
     }
 }
