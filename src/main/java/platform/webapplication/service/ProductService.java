@@ -1,6 +1,8 @@
 package platform.webapplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import platform.webapplication.entities.Conditions;
 import platform.webapplication.entities.Product;
@@ -324,4 +326,46 @@ public class ProductService {
         return products;
     }
 
+
+    // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
+    //aici ar trebui sa adaugam si numarul paginii pe care o dorim
+    //ceva de genul "search/{pageNumber}" http://localhost:5000/product/search?brand=&category=clasic&price=59.99/2
+//    Pageable paging = PageRequest.of(pageNo, pageSize);
+//
+//    Page<Product> pagedResult = productService.findAll(paging);
+//
+//        if(pagedResult.hasContent())
+//        {
+//          return pagedResult.getContent();
+//        }
+//        else
+//        {
+//          return *error message*
+//        }
+//pentru a extrage nr total de pagini, folosim getTotalPages() ca sa avem
+//la sfarsitul paginii web acel buton prin care mergem la pagina urmatoare *pag 1 din 5*
+    public AllProducts findAllPaginated(Integer pageNo) {
+        Pageable paging = PageRequest.of(pageNo, 4);
+        Page<Product> pagedResult = productRepository.findAll(paging);
+        if(pagedResult.hasContent())
+        {
+          return new AllProducts(pagedResult.getContent(), "", 200);
+        }
+        else
+        {
+            return new AllProducts(new ArrayList<>(), "No products", 404);
+        }
+    }
+
+    public HashSet<Product> listSearchedProductsPaged(Integer pageNo, String brand, String category, String year, String strap, String color) {
+        HashSet<Product> products = new HashSet<>();
+
+        if (brand != null || category != null || year != null || strap != null || color != null) {
+            products.addAll(productRepository.search(brand, category, year, strap, color));
+
+            return products;
+        }
+        products.addAll(productRepository.findAll());
+        return products;
+    }
 }
