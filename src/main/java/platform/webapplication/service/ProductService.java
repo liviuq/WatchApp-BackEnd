@@ -169,6 +169,17 @@ public class ProductService {
         }
     }
 
+    public AllProducts findAllPromoted() {
+        List<Product> products = new ArrayList<>();
+        for(Product p : findAll().getProducts()) {
+            if(p.getPromoted() != 0) {
+                products.add(p);
+            }
+        }
+
+        return new AllProducts(products, "", 200);
+    }
+
     public ProductUpdated addPromotedProduct(Integer id) {
         ProductUpdated productUpdated = new ProductUpdated();
         Optional<Product> result = productRepository.findById(id);
