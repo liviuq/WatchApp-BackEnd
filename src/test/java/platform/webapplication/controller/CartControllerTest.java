@@ -64,7 +64,7 @@ class CartControllerTest {
         AllCart allCart =  restTemplate.exchange("http://localhost:5000/cart", HttpMethod.GET, entity, AllCart.class).getBody();
         assertEquals(200, allCart.getStatusCode());
     }
-    
+
     @Test
     void delete() {
         HttpHeaders httpHeaders = new HttpHeaders();
