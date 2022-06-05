@@ -24,7 +24,7 @@ public class FavoritesController {
     }
 
     @GetMapping("extract/{userId}")
-    public FavoriteExtracted exctract(@PathVariable Integer userId) {
+    public FavoriteExtracted extract(@PathVariable Integer userId) {
         return favoritesService.findFavoriteExtract(userId);
     }
 
