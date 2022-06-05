@@ -119,6 +119,13 @@ public class ProductController {
         return productList;
     }
 
+    @GetMapping("filter")
+    public HashSet<Product> filteredProducts(@RequestParam(value = "gender", required = false) String gender, @RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "mechanism", required = false) String mechanism, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "form", required = false) String form, @RequestParam(value = "carcaseColor", required = false) String color, @RequestParam(value = "condition", required = false) String condition, @RequestParam(value = "color", required = false) String strapColor, @RequestParam(value = "thickness", required = false) String thickness, @RequestParam(value = "alarm", required = false) String alarm, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "carcase", required = false) String carcase, @RequestParam(value = "waterResistance", required = false) String waterResistance, @RequestParam(value = "timer", required = false) String timer) {
+        HashSet<Product> productList = productService.listFilteredProducts(gender,brand, mechanism, strap,form, color,  condition, strapColor, thickness,  alarm, year,carcase,waterResistance, timer);
+
+        return productList;
+    }
+
     @GetMapping("search/{pageNo}")
     public AllProducts searchedProductsPaged(@PathVariable Integer pageNo, @RequestParam(value = "brand", required = false) String brand, @RequestParam(value = "category", required = false) String category, @RequestParam(value = "year", required = false) String year, @RequestParam(value = "strap", required = false) String strap, @RequestParam(value = "color", required = false) String color) {
         HashSet<Product> productList = productService.listSearchedProductsPaged(pageNo, brand, category, year, strap, color);
@@ -135,6 +142,8 @@ public class ProductController {
             return new AllProducts(new ArrayList<>(), "No products", 404);
         }
     }
+
+
 
     @GetMapping("/promoted/{pageNo}")
     public AllProducts listPromoted(@PathVariable Integer pageNo)

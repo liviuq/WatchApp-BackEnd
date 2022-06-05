@@ -326,6 +326,17 @@ public class ProductService {
         return products;
     }
 
+    public HashSet<Product> listFilteredProducts(String gender, String brand, String mechanism, String strap,String form, String color,  String condition, String strapColor, String thickness, String alarm, String year,String carcase,String waterResistence, String timer) {
+        HashSet<Product> products = new HashSet<>();
+
+        if (gender != null || brand != null || mechanism != null || strap != null || form != null || color!= null || condition!= null || strapColor!= null || thickness!= null || alarm!= null || year!= null || carcase!= null || waterResistence!= null || timer != null) {
+            products.addAll(productRepository.searchFull(gender, brand,mechanism,strap ,form ,color,condition,strapColor,thickness,alarm,year,carcase,waterResistence,timer));
+
+            return products;
+        }
+        products.addAll(productRepository.findAll());
+        return products;
+    }
 
     // http://localhost:5000/product/search?brand=&category=clasic&price=59.99
     //aici ar trebui sa adaugam si numarul paginii pe care o dorim
