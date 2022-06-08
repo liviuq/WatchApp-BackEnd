@@ -50,6 +50,12 @@ public class Product {
     @NotNull(message = "Condition should not be null!")
     private String conditions;
 
+    public Product(String brand, Float price)
+    {
+        this.brand = brand;
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
