@@ -2,11 +2,8 @@ package platform.webapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import platform.webapplication.entities.Favorites;
 import platform.webapplication.models.Favorites.*;
 import platform.webapplication.service.FavoritesService;
-
-import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
