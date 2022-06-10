@@ -26,6 +26,11 @@ public class Order {
     @NotNull(message = "Order date should not be null!")
     private Date order_date;
 
+    public Order(Integer cart_id, Date order_date) {
+        this.cart_id = cart_id;
+        this.order_date = order_date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
