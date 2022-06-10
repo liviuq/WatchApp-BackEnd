@@ -30,12 +30,6 @@ public class Message {
     @NotNull(message = "Message cannot be empty!")
     private String  text;
 
-    public Message(Integer from_user, Integer to_user, String text) {
-        this.from_user = from_user;
-        this.to_user = to_user;
-        this.text = text;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
