@@ -45,11 +45,6 @@ public class User {
     //@NotNull(message = "Cart id should not be null!")
     private Integer cart_id;
 
-    public User(String first_name, String last_name) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
